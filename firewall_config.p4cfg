@@ -1,0 +1,98 @@
+{
+    "tables": {
+        "payloadscan": {
+            "rules": [
+                {
+                    "action": {
+                        "type": "scan_payload"
+                    }, 
+                    "name": "scan_incomming", 
+                    "match": {
+                        "standard_metadata.ingress_port": {
+                            "value": "p1"
+                        }
+                    }
+                }
+            ]
+        }, 
+        "to_controller": {
+            "rules": [
+                {
+                    "action": {
+                        "type": "do_add_header"
+                    }, 
+                    "name": "do_add_header", 
+                    "match": {
+                        "standard_metadata.egress_port": {
+                            "value": "v0.1"
+                        }
+                    }
+                }
+            ]
+        }, 
+        "from_controller": {
+            "rules": [
+                {
+                    "action": {
+                        "type": "do_remove_header"
+                    }, 
+                    "name": "do_removeHeader", 
+                    "match": {
+                        "standard_metadata.ingress_port": {
+                            "value": "v0.1"
+                        }
+                    }
+                }
+            ]
+        }, 
+        "nat": {
+            "rules": [
+                {
+                    "priority": 99, 
+                    "action": {
+                        "data": {
+                            "port": {
+                                "value": "v0.1"
+                            }
+                        }, 
+                        "type": "nat_int_ext_miss"
+                    }, 
+                    "name": "nat_int_ext_miss_v0.0", 
+                    "match": {
+                        "ipv4.srcAddr": {
+                            "mask": "0", 
+                            "value": "0"
+                        }, 
+                        "tcp.srcPort": {
+                            "mask": "0", 
+                            "value": "0"
+                        }, 
+                        "tcp": {
+                            "value": "valid"
+                        }, 
+                        "ipv4.dstAddr": {
+                            "mask": "0", 
+                            "value": "0"
+                        }, 
+                        "ipv4": {
+                            "value": "valid"
+                        }, 
+                        "standard_metadata.ingress_port": {
+                            "value": "p0"
+                        }, 
+                        "tcp.dstPort": {
+                            "mask": "0", 
+                            "value": "0"
+                        }
+                    }
+                }
+            ], 
+            "default_rule": {
+                "action": {
+                    "type": "nat_ext_int_miss"
+                }, 
+                "name": "nat_ext_int_default"
+            }
+        }
+    }
+}
