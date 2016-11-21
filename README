@@ -1,91 +1,64 @@
-Using nat_firewall:
-
-
-
-PS Files:
-
-firewall.p4
-
-includes/parser.p4
-
-includes/headers.p4
-
-firewall_config.p4cfg
-
-
-
-Table: to_controller
-
-- set standard_metadata.egress_port to exact match on port connected to controller.
-
-
-
-Table: from_controller
-
-- set standard_metadata.ingress_port to exact match on port connected to controller.
-
-
-
-Table: nat
-
-- default: nat_ext_int_miss (drop)
-
-- add a rule for each internal port
-
-	- set priority = 99
-
-	- standard_metadata.ingress_port = internal port number 
-
-	- action: nat_int_ext_miss
-
-	- action parameter: port connected to controller
-
-
-
-
-
-
-
-firewall-controller.py:
-
-requires: 	- scapy
-
-		- thrift
-
-
-
-
-Configuration arguments added - use -h to see usage
-
-If no arguments are provided it will use default values that works with test packets.
-
-
+Using nat_firewall:
+
+
+PS Files:
+
+firewall.p4
+includes/parser.p4
+includes/headers.p4
+firewall_config.p4cfg
+
+
+Table: to_controller
+
+- set standard_metadata.egress_port to exact match on port connected to controller.
+
+
+Table: from_controller
+
+- set standard_metadata.ingress_port to exact match on port connected to controller.
+
+
+Table: nat
+
+- default: nat_ext_int_miss (drop)
+
+- add a rule for each internal port
+
+	- set priority = 99
+	- standard_metadata.ingress_port = internal port number 
+	- action: nat_int_ext_miss
+	- action parameter: port connected to controller
+
+
+
+firewall-controller.py:
+
+requires: 	- scapy
+		- thrift
+
+
+Configuration arguments added - use -h to see usage
+
+If no arguments are provided it will use default values that works with test packets.
+
 Download and Build Thrift to use Controller.
 
 Run the following commands after installing thrift:
 thrift --gen py /opt/nfp_pif/thrift/sdk6_rte.thrift
 cp -a gen-py/. /opt/nfp_pif/thrift/client/
 cd lib/py
-python setup.py install
-
+python setup.py install
+
 Copy firewall-controller.py to /opt/nfp_pif/thrift/client on host containing the NFP after installing the RTE and installing thrift.
-
-
-
-test_packets:
-
-1. Initially packets sent by both ./sendIn.sh and ./sendIn_to_port3.sh should be dropped.
-
-2. Running ./sendOut.sh should send first packet to controller. Controller should add new rules and send packet back.
-
-3. Controller packet should hit nat_int_ext_hit_1025_controller and forward to external port
-
-4. Now ./sendOut.sh and ./sendIn.sh should hit nat_int_ext_hit and nat_ext_int_hit respectively and forward to each other. 
-
-5. At this stage ./sendIn_to_port3.sh should still drop.
-
-6. After running ./sendOut_port3.sh, the same should happen as in 2,3 and 4.
-
-7. Any other packets sent to external port should still drop.
-
-
+
+
+test_packets:
+
+1. Initially packets sent by both ./sendIn.sh and ./sendIn_to_port3.sh should be dropped.
+2. Running ./sendOut.sh should send first packet to controller. Controller should add new rules and send packet back.
+3. Controller packet should hit nat_int_ext_hit_1025_controller and forward to external port
+4. Now ./sendOut.sh and ./sendIn.sh should hit nat_int_ext_hit and nat_ext_int_hit respectively and forward to each other. 
+5. At this stage ./sendIn_to_port3.sh should still drop.
+6. After running ./sendOut_port3.sh, the same should happen as in 2,3 and 4.
+7. Any other packets sent to external port should still drop.
