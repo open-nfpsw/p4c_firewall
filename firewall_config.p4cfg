@@ -1,20 +1,5 @@
 {
     "tables": {
-        "payloadscan": {
-            "rules": [
-                {
-                    "action": {
-                        "type": "scan_payload"
-                    }, 
-                    "name": "scan_incomming", 
-                    "match": {
-                        "standard_metadata.ingress_port": {
-                            "value": "p1"
-                        }
-                    }
-                }
-            ]
-        }, 
         "to_controller": {
             "rules": [
                 {
@@ -24,21 +9,6 @@
                     "name": "do_add_header", 
                     "match": {
                         "standard_metadata.egress_port": {
-                            "value": "v0.1"
-                        }
-                    }
-                }
-            ]
-        }, 
-        "from_controller": {
-            "rules": [
-                {
-                    "action": {
-                        "type": "do_remove_header"
-                    }, 
-                    "name": "do_removeHeader", 
-                    "match": {
-                        "standard_metadata.ingress_port": {
                             "value": "v0.1"
                         }
                     }
@@ -78,11 +48,27 @@
                             "value": "valid"
                         }, 
                         "standard_metadata.ingress_port": {
-                            "value": "p0"
+                            "value": "v0.0"
                         }, 
                         "tcp.dstPort": {
                             "mask": "0", 
                             "value": "0"
+                        }
+                    }
+                }, 
+                {
+                    "action": {
+                        "data": {
+                            "port": {
+                                "value": "v0.2"
+                            }
+                        }, 
+                        "type": "controller_pkt"
+                    }, 
+                    "name": "controller_pkt", 
+                    "match": {
+                        "standard_metadata.ingress_port": {
+                            "value": "v0.1"
                         }
                     }
                 }

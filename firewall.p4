@@ -40,8 +40,8 @@ field_list_calculation ipv4_checksum {
 }
 
 calculated_field ipv4.hdrChecksum  {
-    verify ipv4_checksum;
-    update ipv4_checksum;
+    verify ipv4_checksum; //Packet received back from controller where NAT is also done gets dropped if verify is enabled. How can we enable this for all other ports? (standard_metadata.ingress_port?)
+    update ipv4_checksum; 
 }
 // /IPv4 Checksum
 
@@ -75,7 +75,7 @@ field_list_calculation tcp_ipv4_checksum {
 }
 
 calculated_field tcp.checksum  {
-    verify tcp_ipv4_checksum if (valid(ipv4));
+    verify tcp_ipv4_checksum if (valid(ipv4));   //Packet received back from controller where NAT is also done gets dropped if verify is enabled. How can we enable this for all other ports? (standard_metadata.ingress_port?)
     update tcp_ipv4_checksum if (valid(ipv4));
 }
 // /TCP Checksum
@@ -115,6 +115,11 @@ action nat_ext_int_miss() {
     drop();
 }
 
+action controller_pkt(port) {
+    remove_header(controller_header);
+    modify_field(standard_metadata.egress_spec,port); //set to external port
+}
+
 
 table nat {
     reads {
@@ -131,20 +136,22 @@ table nat {
         nat_ext_int_hit;
         nat_int_ext_miss;
         nat_ext_int_miss; //make default
+        controller_pkt;
     }
+    support_timeout : true;
 }
 
 // /NAT
 
 
-
+/*
 
 // From Controller: Remove Header
 
 //We know which port the controller is on
-action do_remove_header() {
+action do_remove_header(port) {
     remove_header(controller_header);
- //   modify_field(standard_metadata.egress_spec,port);
+    modify_field(standard_metadata.egress_spec,port); //set to external port
 }
 
 table from_controller {
@@ -154,21 +161,20 @@ table from_controller {
     actions { 
         do_remove_header; 
     }
-    size : 1; // will there always only be one controller? size : 1;?
+    size : 1; 
 }
 // /From Controller: Remove Header
 
 
 
-
+*/
 
 
 //Ingress Control
 
 control ingress {
-  apply(from_controller);
   apply(nat);
-  
+//  apply(from_controller);  
 }
 
 // /Ingress Control
@@ -201,7 +207,7 @@ table to_controller {
 
 // /Controller Add Header
 
-
+/*
 //Scan Payload
 
 primitive_action payload_scan();
@@ -221,14 +227,14 @@ table payloadscan {
 }
 
 // /Scan Payload
-
+*/
 
 
 // Egress Control
 
 control egress {
     apply(to_controller);
-    apply(payloadscan);
+//    apply(payloadscan);
 }
 
 // /Egress Control
