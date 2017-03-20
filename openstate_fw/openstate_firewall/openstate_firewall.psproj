@@ -1,0 +1,1425 @@
+{
+    "project": {
+        "P4_project": true, 
+        "build": {
+            "common": {
+                "assembler": {
+                    "include_paths": [
+                        "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include", 
+                        ".\\out", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\include", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\_h", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\_uc", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks", 
+                        "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic", 
+                        "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\shared", 
+                        "$(SDKDIR)\\p4\\components\\ng_nfd\\shared", 
+                        "$(SDKDIR)\\components\\standardlibrary\\include", 
+                        "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src", 
+                        "$(SDKDIR)\\p4\\components\\gro", 
+                        "$(SDKDIR)\\p4\\components\\gro\\me"
+                    ], 
+                    "include_std_lib_paths": true, 
+                    "predefined_macros": {
+                        "_comment": "future use"
+                    }
+                }, 
+                "compiler": {
+                    "include_paths": [
+                        "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include", 
+                        ".\\out", 
+                        ".\\out\\callbackapi", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\include", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\include\\nfp6000", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\nfp", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\_h", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks", 
+                        "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks", 
+                        "$(SDKDIR)\\p4\\components\\ng_nfd\\shared", 
+                        "$(SDKDIR)\\p4\\components\\ng_nfd", 
+                        "$(SDKDIR)\\components\\standardlibrary\\include", 
+                        "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\include", 
+                        "$(SDKDIR)\\p4\\components\\nfp_pif\\shared\\include", 
+                        "$(SDKDIR)\\p4\\components\\dcfl\\me\\lib\\dcfl", 
+                        "$(SDKDIR)\\p4\\components\\dcfl\\shared\\include\\dcfl", 
+                        "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache", 
+                        "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary", 
+                        "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\include", 
+                        "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\hashmap\\include", 
+                        "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib", 
+                        "$(SDKDIR)\\p4\\components\\gro", 
+                        "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\lib", 
+                        "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\macflush", 
+                        "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm"
+                    ], 
+                    "include_std_lib_paths": true, 
+                    "nfcc_ng": false, 
+                    "predefined_macros": {
+                        "_comment": "future use"
+                    }
+                }, 
+                "include_paths": {
+                    "_comment": "future use"
+                }, 
+                "p4compiler": {
+                    "include_std_lib_paths": "true", 
+                    "predefined_macros": {
+                        "_comment": "future use"
+                    }
+                }, 
+                "parallel_build": true, 
+                "predefined_macros": [
+                    "PLATFORM_PORT_SELECTION=H_PLATFORM", 
+                    "PIF_APP_CONFIG=PIF_APP_DEFAULT", 
+                    "NUM_IMU=1", 
+                    "NUM_EMU=1", 
+                    "SIMULATION=0", 
+                    "PIF_DEBUG=1", 
+                    "PKTIO_6_0_2", 
+                    "PIF_GLOBAL_FLOWCACHE_DISABLED"
+                ], 
+                "rev_max": -1, 
+                "rev_min": 16
+            }, 
+            "targets": {
+                "": {
+                    "build_required": false, 
+                    "input_files": {
+                        "ext_obj_files": [], 
+                        "obj_files": [], 
+                        "p4_source_files": [
+                            ".\\main.p4", 
+                            ".\\publicport.c"
+                        ]
+                    }, 
+                    "settings": {
+                        "additional_options": "", 
+                        "all_header_ops": true, 
+                        "debug_info": true, 
+                        "default_table_size": 65536, 
+                        "define": [], 
+                        "flowcache_enabled": false, 
+                        "gro_enabled": true, 
+                        "implicit_header_valid": true, 
+                        "include_paths": [], 
+                        "mc_init": false, 
+                        "multicast_group_count": 16, 
+                        "multicast_group_size": 16, 
+                        "nfd_enabled": true, 
+                        "num_assign_worker_mes": -1, 
+                        "obj_target": false, 
+                        "p4_user_config": ".\\user_cfg_vfs.p4cfg", 
+                        "reduced_thread_usage": true, 
+                        "shared_codestore": false, 
+                        "zero_new_headers": false
+                    }, 
+                    "target": "list", 
+                    "tool": "p4compiler"
+                }, 
+                ".\\openstate_firewall": {
+                    "build_required": false, 
+                    "list_assignments": {
+                        "i32.me0": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me1": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me10": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me11": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me2": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me3": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me4": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me5": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me6": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me7": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me8": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i32.me9": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i33.me0": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i33.me1": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i33.me10": [
+                            "nfd_pcie0_sb.list"
+                        ], 
+                        "i33.me11": [
+                            "nfd_pcie0_pd0.list"
+                        ], 
+                        "i33.me2": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i33.me3": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i33.me4": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i33.me5": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i33.me6": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i33.me7": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i33.me8": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i33.me9": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i34.me0": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i34.me1": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i34.me2": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i34.me3": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i34.me4": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i34.me5": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i34.me6": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i34.me7": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i34.me8": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i34.me9": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me0": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me1": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me10": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me11": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me2": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me3": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me4": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me5": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me6": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me7": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me8": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i35.me9": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i36.me0": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i36.me1": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i36.me11": [
+                            "app_master.list"
+                        ], 
+                        "i36.me2": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i36.me3": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i36.me4": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i36.me5": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i36.me6": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i36.me7": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i36.me8": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i36.me9": [
+                            "pif_app_nfd.list"
+                        ], 
+                        "i4.me0": [
+                            "nfd_pcie0_pci_out_me0.list"
+                        ], 
+                        "i4.me1": [
+                            "nfd_pcie0_pci_in_gather.list"
+                        ], 
+                        "i4.me2": [
+                            "nfd_pcie0_pci_in_issue0.list"
+                        ], 
+                        "i4.me3": [
+                            "nfd_pcie0_notify.list"
+                        ], 
+                        "i48.me0": [
+                            "gro0.list"
+                        ], 
+                        "i48.me1": [
+                            "gro1.list"
+                        ], 
+                        "i48.me2": [
+                            "nfd_svc.list"
+                        ], 
+                        "i48.me3": [
+                            "blm0.list"
+                        ]
+                    }, 
+                    "settings": {
+                        "additional_options": "", 
+                        "chip_name": "<unnamed>", 
+                        "debug_info": true, 
+                        "elf_64": true, 
+                        "fill": "default", 
+                        "fill_enable": false, 
+                        "gen_mem_map_file": false, 
+                        "gen_seg_h_file": false, 
+                        "insert_nffwmip": true, 
+                        "insert_rt_syms": true, 
+                        "island_partial_fw_map": {
+                            "i8": "catamaran"
+                        }, 
+                        "map_file": ".\\openstate_firewall_", 
+                        "memories": {}, 
+                        "nn_chains": {}, 
+                        "produce_u_cstore_ecc": true, 
+                        "shared_codestores_enabled": false, 
+                        "user_note": {
+                            "enabled": true, 
+                            "file": ".\\out\\pif_debug.json", 
+                            "name": "pif_debug_json"
+                        }
+                    }, 
+                    "target": "nffw", 
+                    "tool": "linker"
+                }, 
+                ".\\out\\app_master.list\\app_master.list": {
+                    "build_required": false, 
+                    "input_files": {
+                        "c_source_files": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\src\\app_master.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_init.c", 
+                            ".\\out\\pif_digests.c", 
+                            ".\\out\\pif_parrep_pvs_sync.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\mac_flush.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\dcfl_init.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\system_init.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pif_pkt_mod_script.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\hashmap\\src\\camp_hash.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\nfp\\libnfp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\std\\libstd.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c", 
+                            "$(SDKDIR)\\p4\\components\\dcfl\\me\\lib\\dcfl\\libdcfl.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\libblm.c", 
+                            "$(SDKDIR)\\p4\\components\\gro\\libgro.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\libnfd.c"
+                        ], 
+                        "ext_obj_files": [], 
+                        "obj_files": []
+                    }, 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-Qno_decl_volatile -mIPOPT_nfp=2", 
+                        "alloc_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "asm_code_file": false, 
+                        "command_line": "", 
+                        "context_mode": 8, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "APP_MES_LIST=\"((( 0 + 32) << 4) + ( 0 + 4)), ((( 1 + 32) << 4) + ( 0 + 4)), ((( 2 + 32) << 4) + ( 0 + 4)), ((( 3 + 32) << 4) + ( 0 + 4))\"", 
+                            "NFD_CFG_NEXT_ME0=\"__nfp_idstr2meid(\\\"i36.me11\\\")\"", 
+                            "NFD_CFG_SIG_NEXT_ME0=\"nfd_cfg_sig_app_master0\"", 
+                            "NFD_CFG_NEXT_ME1=\"__nfp_idstr2meid(\\\"i36.me11\\\")\"", 
+                            "NFD_CFG_SIG_NEXT_ME1=\"nfd_cfg_sig_app_master1\"", 
+                            "NFD_CFG_NEXT_ME2=\"__nfp_idstr2meid(\\\"i36.me11\\\")\"", 
+                            "NFD_CFG_SIG_NEXT_ME2=\"nfd_cfg_sig_app_master2\"", 
+                            "NFD_CFG_NEXT_ME3=\"__nfp_idstr2meid(\\\"i36.me11\\\")\"", 
+                            "NFD_CFG_SIG_NEXT_ME3=\"nfd_cfg_sig_app_master3\"", 
+                            "MASTERME", 
+                            "GLOBAL_INIT"
+                        ], 
+                        "edit_override": false, 
+                        "enable_cmd_intrinsics": false, 
+                        "endian_mode": 1, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "include_std_c_source_file": true, 
+                        "inlining": 1, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_third_party_addr": false, 
+                        "mix_mode": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "neighbor_mode": 1, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 8, 
+                        "obj_target": false, 
+                        "optimize": 2, 
+                        "spill_control": 3, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "compiler"
+                }, 
+                ".\\out\\blm0.list\\blm0.list": {
+                    "build_required": false, 
+                    "input_file": "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\blm_main.uc", 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "", 
+                        "allocated_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "auto_fix_bank_conflicts": true, 
+                        "auto_spill_gprs": true, 
+                        "case_sensitive": true, 
+                        "codeless": false, 
+                        "command_line": "", 
+                        "convert_warnings": false, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "BLM_0_ISLAND_48", 
+                            "BLM_1_ISLAND_49", 
+                            "NBII=8", 
+                            "BLM_INSTANCE_ID=0", 
+                            "BLM_INIT_EMU_RINGS", 
+                            "NBI_DMA_FANOUT_ISLANDS=1", 
+                            "CATAMARAN_PICO_CODE=1", 
+                            "NBI_COUNT=2", 
+                            "BLM_BLQ_EMEM_TYPE=emem"
+                        ], 
+                        "edit_override": false, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "generate_reg_usage_data": false, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_indref_mode": "nfp6000", 
+                        "me_third_party_addr": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 8, 
+                        "optimize": 1, 
+                        "preproc_c": false, 
+                        "protect_macro_locals": false, 
+                        "require_reg_declarations": true, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "assembler"
+                }, 
+                ".\\out\\gro0.list\\gro0.list": {
+                    "build_required": false, 
+                    "input_file": "$(SDKDIR)\\p4\\components\\gro\\me\\gro_out.uc", 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-keep_unreachable_code", 
+                        "allocated_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "auto_fix_bank_conflicts": false, 
+                        "auto_spill_gprs": false, 
+                        "case_sensitive": true, 
+                        "codeless": false, 
+                        "command_line": "", 
+                        "convert_warnings": false, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "NFD_VERSION=0x03010000", 
+                            "NFP_LIB_ANY_NFAS_VERSION", 
+                            "GRO_BLOCK_NUM=0"
+                        ], 
+                        "edit_override": false, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "generate_reg_usage_data": false, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_indref_mode": "nfp6000", 
+                        "me_third_party_addr": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 8, 
+                        "optimize": 0, 
+                        "preproc_c": false, 
+                        "protect_macro_locals": false, 
+                        "require_reg_declarations": true, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "assembler"
+                }, 
+                ".\\out\\gro1.list\\gro1.list": {
+                    "build_required": false, 
+                    "input_file": "$(SDKDIR)\\p4\\components\\gro\\me\\gro_out.uc", 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-keep_unreachable_code", 
+                        "allocated_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "auto_fix_bank_conflicts": false, 
+                        "auto_spill_gprs": false, 
+                        "case_sensitive": true, 
+                        "codeless": false, 
+                        "command_line": "", 
+                        "convert_warnings": false, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "NFD_VERSION=0x03010000", 
+                            "NFP_LIB_ANY_NFAS_VERSION", 
+                            "GRO_BLOCK_NUM=1"
+                        ], 
+                        "edit_override": false, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "generate_reg_usage_data": false, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_indref_mode": "nfp6000", 
+                        "me_third_party_addr": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 8, 
+                        "optimize": 0, 
+                        "preproc_c": false, 
+                        "protect_macro_locals": false, 
+                        "require_reg_declarations": true, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "assembler"
+                }, 
+                ".\\out\\nfd_pcie0_notify.list\\nfd_pcie0_notify.list": {
+                    "build_required": false, 
+                    "input_files": {
+                        "c_source_files": [
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_in\\notify.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\nfp\\libnfp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\std\\libstd.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\libblm.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\utils\\libutils.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\shared\\nfd_cfg.c"
+                        ], 
+                        "ext_obj_files": [], 
+                        "obj_files": []
+                    }, 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-Qno_decl_volatile -mIPOPT_nfp=2", 
+                        "alloc_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "asm_code_file": false, 
+                        "command_line": "", 
+                        "context_mode": 4, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "NFD_IN_NOTIFY_DBG_CHKS", 
+                            "NFD_IN_DATA_DMA_ME0=\"__nfp_idstr2meid(\\\"pcie0.me2\\\")\""
+                        ], 
+                        "edit_override": false, 
+                        "enable_cmd_intrinsics": false, 
+                        "endian_mode": 1, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "include_std_c_source_file": true, 
+                        "inlining": 1, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_third_party_addr": false, 
+                        "mix_mode": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "neighbor_mode": 0, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 4, 
+                        "obj_target": false, 
+                        "optimize": 2, 
+                        "spill_control": 1, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "compiler"
+                }, 
+                ".\\out\\nfd_pcie0_pci_in_gather.list\\nfd_pcie0_pci_in_gather.list": {
+                    "build_required": false, 
+                    "input_files": {
+                        "c_source_files": [
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_in_me0.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\nfp\\libnfp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\std\\libstd.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\libblm.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\utils\\libutils.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\shared\\nfd_cfg.c"
+                        ], 
+                        "ext_obj_files": [], 
+                        "obj_files": []
+                    }, 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-Qno_decl_volatile -mIPOPT_nfp=2", 
+                        "alloc_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "asm_code_file": false, 
+                        "command_line": "", 
+                        "context_mode": 8, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "NFD_IN_DATA_DMA_ME0=\"__nfp_idstr2meid(\\\"pcie0.me2\\\")\"", 
+                            "NFD_OUT_CACHE_ME=\"__nfp_idstr2meid(\\\"pcie0.me0\\\")\""
+                        ], 
+                        "edit_override": false, 
+                        "enable_cmd_intrinsics": false, 
+                        "endian_mode": 1, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "include_std_c_source_file": true, 
+                        "inlining": 1, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_third_party_addr": false, 
+                        "mix_mode": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "neighbor_mode": 0, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 8, 
+                        "obj_target": false, 
+                        "optimize": 2, 
+                        "spill_control": 1, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "compiler"
+                }, 
+                ".\\out\\nfd_pcie0_pci_in_issue0.list\\nfd_pcie0_pci_in_issue0.list": {
+                    "build_required": false, 
+                    "input_files": {
+                        "c_source_files": [
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_in_me1.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\nfp\\libnfp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\std\\libstd.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\libblm.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\utils\\libutils.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\shared\\nfd_cfg.c"
+                        ], 
+                        "ext_obj_files": [], 
+                        "obj_files": []
+                    }, 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-Qno_decl_volatile -mIPOPT_nfp=2 -Qlmpt_reserve_option=0xc", 
+                        "alloc_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "asm_code_file": false, 
+                        "command_line": "", 
+                        "context_mode": 4, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "PCI_IN_ISSUE_DMA_IDX=0", 
+                            "NFD_IN_NOTIFY_ME=\"__nfp_idstr2meid(\\\"pcie0.me3\\\")\""
+                        ], 
+                        "edit_override": false, 
+                        "enable_cmd_intrinsics": false, 
+                        "endian_mode": 1, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "include_std_c_source_file": true, 
+                        "inlining": 1, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_third_party_addr": false, 
+                        "mix_mode": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "neighbor_mode": 0, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 4, 
+                        "obj_target": false, 
+                        "optimize": 2, 
+                        "spill_control": 1, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "compiler"
+                }, 
+                ".\\out\\nfd_pcie0_pci_out_me0.list\\nfd_pcie0_pci_out_me0.list": {
+                    "build_required": false, 
+                    "input_files": {
+                        "c_source_files": [
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_out_me0.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\nfp\\libnfp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\std\\libstd.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\libblm.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\utils\\libutils.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\shared\\nfd_cfg.c"
+                        ], 
+                        "ext_obj_files": [], 
+                        "obj_files": []
+                    }, 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-Qno_decl_volatile -mIPOPT_nfp=2", 
+                        "alloc_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "asm_code_file": false, 
+                        "command_line": "", 
+                        "context_mode": 8, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "NFD_CFG_NEXT_ME=\"__nfp_idstr2meid(\\\"i33.me10\\\")\"", 
+                            "NFD_CFG_SIG_NEXT_ME=\"nfd_cfg_sig_sb\""
+                        ], 
+                        "edit_override": false, 
+                        "enable_cmd_intrinsics": false, 
+                        "endian_mode": 1, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "include_std_c_source_file": true, 
+                        "inlining": 1, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 2048, 
+                        "local_memory_start": 2048, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_third_party_addr": false, 
+                        "mix_mode": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "neighbor_mode": 0, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 8, 
+                        "obj_target": false, 
+                        "optimize": 2, 
+                        "spill_control": 1, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "compiler"
+                }, 
+                ".\\out\\nfd_pcie0_pd0.list\\nfd_pcie0_pd0.list": {
+                    "build_required": false, 
+                    "input_file": "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_out_pd.uc", 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-t", 
+                        "allocated_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "auto_fix_bank_conflicts": true, 
+                        "auto_spill_gprs": true, 
+                        "case_sensitive": true, 
+                        "codeless": false, 
+                        "command_line": "", 
+                        "convert_warnings": false, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "NFD_OUT_STAGE_ME=__nfp_idstr2meid(\"i33.me10\")", 
+                            "STAGE_BATCH_MANAGER_CTX=0", 
+                            "NFD_OUT_SB_WQ_NUM=15"
+                        ], 
+                        "edit_override": false, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "generate_reg_usage_data": false, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_indref_mode": "nfp6000", 
+                        "me_third_party_addr": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 8, 
+                        "optimize": 1, 
+                        "preproc_c": false, 
+                        "protect_macro_locals": false, 
+                        "require_reg_declarations": true, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "assembler"
+                }, 
+                ".\\out\\nfd_pcie0_sb.list\\nfd_pcie0_sb.list": {
+                    "build_required": false, 
+                    "input_file": "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_out_sb.uc", 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-t", 
+                        "allocated_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "auto_fix_bank_conflicts": true, 
+                        "auto_spill_gprs": true, 
+                        "case_sensitive": true, 
+                        "codeless": false, 
+                        "command_line": "", 
+                        "convert_warnings": false, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "STAGE_BATCH_MANAGER_CTX=0", 
+                            "STAGE_BATCH_FIRST_WORKER=1", 
+                            "STAGE_BATCH_NUM_WORKERS=7", 
+                            "NFD_CFG_NEXT_ME=__nfp_idstr2meid(\"i48.me2\")", 
+                            "NFD_CFG_SIG_NEXT_ME=_nfd_cfg_sig_svc_me0", 
+                            "NFD_OUT_SB_WQ_NUM=15"
+                        ], 
+                        "edit_override": false, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "generate_reg_usage_data": false, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_indref_mode": "nfp6000", 
+                        "me_third_party_addr": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 8, 
+                        "optimize": 1, 
+                        "preproc_c": false, 
+                        "protect_macro_locals": false, 
+                        "require_reg_declarations": true, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "assembler"
+                }, 
+                ".\\out\\nfd_svc.list\\nfd_svc.list": {
+                    "build_required": false, 
+                    "input_files": {
+                        "c_source_files": [
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\svc_me.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\nfp\\libnfp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\std\\libstd.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\libblm.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\utils\\libutils.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\shared\\nfd_cfg.c"
+                        ], 
+                        "ext_obj_files": [], 
+                        "obj_files": []
+                    }, 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-Qno_decl_volatile -mIPOPT_nfp=2", 
+                        "alloc_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "asm_code_file": false, 
+                        "command_line": "", 
+                        "context_mode": 8, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [
+                            "NFD_CFG_NEXT_ME0=\"__nfp_idstr2meid(\\\"i36.me11\\\")\"", 
+                            "NFD_CFG_SIG_NEXT_ME0=\"nfd_cfg_sig_app_master0\"", 
+                            "NFD_CFG_NEXT_ME1=\"__nfp_idstr2meid(\\\"i36.me11\\\")\"", 
+                            "NFD_CFG_SIG_NEXT_ME1=\"nfd_cfg_sig_app_master1\"", 
+                            "NFD_CFG_NEXT_ME2=\"__nfp_idstr2meid(\\\"i36.me11\\\")\"", 
+                            "NFD_CFG_SIG_NEXT_ME2=\"nfd_cfg_sig_app_master2\"", 
+                            "NFD_CFG_NEXT_ME3=\"__nfp_idstr2meid(\\\"i36.me11\\\")\"", 
+                            "NFD_CFG_SIG_NEXT_ME3=\"nfd_cfg_sig_app_master3\""
+                        ], 
+                        "edit_override": false, 
+                        "enable_cmd_intrinsics": false, 
+                        "endian_mode": 1, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "include_std_c_source_file": true, 
+                        "inlining": 1, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_third_party_addr": false, 
+                        "mix_mode": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "neighbor_mode": 1, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 8, 
+                        "obj_target": false, 
+                        "optimize": 2, 
+                        "spill_control": 1, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "compiler"
+                }, 
+                ".\\out\\pif_app_nfd.list\\pif_app_nfd.list": {
+                    "build_required": false, 
+                    "input_files": {
+                        "c_source_files": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pif_app_nfd.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pkt_ops.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pkt_clone.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\mcast.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\dcfl_init.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\system_init.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pif_pkt_mod_script.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_action_common.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_meter.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_lookup.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_pkt.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_counters.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_init.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_flcalc_algorithms.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_memops.c", 
+                            ".\\out\\pif_design.c", 
+                            ".\\out\\pif_parrep.c", 
+                            ".\\out\\pif_actions.c", 
+                            ".\\out\\pif_global.c", 
+                            ".\\out\\pif_ctlflow.c", 
+                            ".\\out\\pif_tables.c", 
+                            ".\\out\\pif_deparse.c", 
+                            ".\\out\\pif_digests.c", 
+                            ".\\out\\pif_meters.c", 
+                            ".\\out\\pif_registers.c", 
+                            ".\\out\\pif_pkt_recurse.c", 
+                            ".\\out\\pif_pkt_clone.c", 
+                            ".\\out\\pif_flcalc.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\hashmap\\src\\camp_hash.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\nfp\\libnfp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\std\\libstd.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c", 
+                            "$(SDKDIR)\\p4\\components\\dcfl\\me\\lib\\dcfl\\libdcfl.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\libblm.c", 
+                            "$(SDKDIR)\\p4\\components\\gro\\libgro.c", 
+                            "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\libnfd.c", 
+                            ".\\publicport.c"
+                        ], 
+                        "ext_obj_files": [], 
+                        "obj_files": []
+                    }, 
+                    "list_type": "application", 
+                    "settings": {
+                        "additional_options": "-Qno_decl_volatile -mIPOPT_nfp=2", 
+                        "alloc_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "asm_code_file": false, 
+                        "command_line": "", 
+                        "context_mode": 4, 
+                        "cycle_utilization": 100, 
+                        "debug_info": true, 
+                        "define": [], 
+                        "edit_override": false, 
+                        "enable_cmd_intrinsics": false, 
+                        "endian_mode": 1, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "include_std_c_source_file": true, 
+                        "inlining": 1, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_third_party_addr": false, 
+                        "mix_mode": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "neighbor_mode": 1, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 4, 
+                        "obj_target": false, 
+                        "optimize": 2, 
+                        "spill_control": 3, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "compiler"
+                }
+            }
+        }, 
+        "chips": {
+            "<unnamed>": {
+                "chip_id": "AMDA0096-0001:0", 
+                "chip_rev_num": 16, 
+                "clock_freq_config": {
+                    "ILK0SERDESCLK": 10.3125, 
+                    "ILK1SERDESCLK": 10.3125, 
+                    "fD0_CLK": 800.0, 
+                    "fD1_CLK": 533.33, 
+                    "fD2_CLK": 533.33, 
+                    "fILA0_CLK": 800.0, 
+                    "fILA1_CLK": 800.0, 
+                    "fP_CLK": 600.0, 
+                    "fT_CLK": 600.0
+                }, 
+                "memory_config": {
+                    "i24": {
+                        "channels": "2", 
+                        "leveling_enabled": true, 
+                        "size": "8G"
+                    }, 
+                    "i25": {
+                        "channels": "2", 
+                        "leveling_enabled": true, 
+                        "size": "8G"
+                    }, 
+                    "i26": {
+                        "channels": "2", 
+                        "leveling_enabled": true, 
+                        "size": "8G"
+                    }
+                }, 
+                "micro_engine_data": {
+                    "i1.me0": {}, 
+                    "i1.me1": {}, 
+                    "i1.me2": {}, 
+                    "i1.me3": {}, 
+                    "i32.me0": {}, 
+                    "i32.me1": {}, 
+                    "i32.me10": {}, 
+                    "i32.me11": {}, 
+                    "i32.me2": {}, 
+                    "i32.me3": {}, 
+                    "i32.me4": {}, 
+                    "i32.me5": {}, 
+                    "i32.me6": {}, 
+                    "i32.me7": {}, 
+                    "i32.me8": {}, 
+                    "i32.me9": {}, 
+                    "i33.me0": {}, 
+                    "i33.me1": {}, 
+                    "i33.me10": {}, 
+                    "i33.me11": {}, 
+                    "i33.me2": {}, 
+                    "i33.me3": {}, 
+                    "i33.me4": {}, 
+                    "i33.me5": {}, 
+                    "i33.me6": {}, 
+                    "i33.me7": {}, 
+                    "i33.me8": {}, 
+                    "i33.me9": {}, 
+                    "i34.me0": {}, 
+                    "i34.me1": {}, 
+                    "i34.me10": {}, 
+                    "i34.me11": {}, 
+                    "i34.me2": {}, 
+                    "i34.me3": {}, 
+                    "i34.me4": {}, 
+                    "i34.me5": {}, 
+                    "i34.me6": {}, 
+                    "i34.me7": {}, 
+                    "i34.me8": {}, 
+                    "i34.me9": {}, 
+                    "i35.me0": {}, 
+                    "i35.me1": {}, 
+                    "i35.me10": {}, 
+                    "i35.me11": {}, 
+                    "i35.me2": {}, 
+                    "i35.me3": {}, 
+                    "i35.me4": {}, 
+                    "i35.me5": {}, 
+                    "i35.me6": {}, 
+                    "i35.me7": {}, 
+                    "i35.me8": {}, 
+                    "i35.me9": {}, 
+                    "i36.me0": {}, 
+                    "i36.me1": {}, 
+                    "i36.me10": {}, 
+                    "i36.me11": {}, 
+                    "i36.me2": {}, 
+                    "i36.me3": {}, 
+                    "i36.me4": {}, 
+                    "i36.me5": {}, 
+                    "i36.me6": {}, 
+                    "i36.me7": {}, 
+                    "i36.me8": {}, 
+                    "i36.me9": {}, 
+                    "i4.me0": {}, 
+                    "i4.me1": {}, 
+                    "i4.me2": {}, 
+                    "i4.me3": {}, 
+                    "i48.me0": {}, 
+                    "i48.me1": {}, 
+                    "i48.me2": {}, 
+                    "i48.me3": {}
+                }
+            }
+        }, 
+        "debug_only": false, 
+        "files": {
+            "c_script": {}, 
+            "microc": {
+                "$(SDKDIR)\\p4\\components\\dcfl\\me\\lib\\dcfl\\libdcfl.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_lock.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_remove.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_timeout.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_timeout_lock.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_timestamp.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\jenkins_hash.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\cam.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\cluster_target.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\mem_atomic_indirect.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\mem_cam_add_inc.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\rotate.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\libblm.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\nfp\\libnfp.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\std\\libstd.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\gro\\libgro.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\dcfl_init.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\fc.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\mac_flush.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\mcast.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pif_app_nfd.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pif_pkt_mod_script.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pkt_clone.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pkt_ops.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\system_init.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\src\\app_master.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\hashmap\\src\\camp_hash.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_action_common.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_counters.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_flcalc_algorithms.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_init.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_lookup.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_memops.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_meter.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_pkt.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\libnfd.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_in\\notify.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_in_me0.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_in_me1.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_out_me0.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\shared\\nfd_cfg.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\svc_me.c": {
+                    "update": "YES"
+                }, 
+                "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\utils\\libutils.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_actions.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_ctlflow.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_deparse.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_design.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_digests.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_flcalc.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_global.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_meters.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_parrep.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_parrep_pvs_sync.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_pkt_clone.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_pkt_recurse.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_registers.c": {
+                    "update": "YES"
+                }, 
+                ".\\out\\pif_tables.c": {
+                    "update": "YES"
+                }
+            }, 
+            "microcode": {
+                "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\blm_main.uc": {}, 
+                "$(SDKDIR)\\p4\\components\\gro\\me\\gro_out.uc": {}, 
+                "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_out_pd.uc": {}, 
+                "$(SDKDIR)\\p4\\components\\ng_nfd\\me\\blocks\\vnic\\pci_out_sb.uc": {}
+            }, 
+            "p4code": {
+                ".\\checksum.p4": {
+                    "update": "YES"
+                }, 
+                ".\\includes\\headers.p4": {
+                    "update": "YES"
+                }, 
+                ".\\includes\\intrinsic.p4": {
+                    "update": "YES"
+                }, 
+                ".\\includes\\parser.p4": {
+                    "update": "YES"
+                }, 
+                ".\\main.p4": {
+                    "update": "YES"
+                }, 
+                ".\\openstate.p4": {
+                    "update": "YES"
+                }, 
+                ".\\publicport.c": {
+                    "update": "YES"
+                }
+            }, 
+            "p4userconfigs": {
+                ".\\user_cfg.p4cfg": {
+                    "update": "YES"
+                }, 
+                ".\\user_cfg_vfs.p4cfg": {
+                    "update": "YES"
+                }
+            }
+        }, 
+        "folder_mapping": {}, 
+        "legacy_mode": false, 
+        "managed_c_project": false, 
+        "p4_version": "1.0", 
+        "pif_gen_version": "1.7.2-587390f25a4", 
+        "pkt_strm_config": {
+            "nbi": {
+                "0": {
+                    "channel_configs": [], 
+                    "mac_config": ""
+                }, 
+                "1": {
+                    "channel_configs": [], 
+                    "mac_config": ""
+                }
+            }
+        }, 
+        "project_name": "openstate_firewall", 
+        "project_path": "C:\\Users\\Jaco\\NFP_SDK\\openstate_firewall\\openstate_firewall.psproj", 
+        "sim_startup_options": {
+            "imported_var_data_file": "", 
+            "sim_profile_started": true, 
+            "startup_scripts": {}
+        }, 
+        "version": "61.02"
+    }
+}
