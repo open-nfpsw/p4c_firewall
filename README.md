@@ -29,11 +29,10 @@ In our experience the pros of the state table approach greatly outweighs the dyn
 
 ###### Pros:
 	- State updated quickly using primitive actions
-	- Only static p4 rules
+	- Only static P4 rules
 	- Higher throughput
-
 ###### Cons:
-	- More advanced c progamming to impliment the primitive actions
+	- More advanced c progamming to impliment the primitive actions (compared to simplicity of using P4 alone)
 	- Number of flows limited by memory available for hash table and bucket size
 
 
