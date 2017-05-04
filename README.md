@@ -2,10 +2,10 @@
 
 This repository contains two different approaches taken to implement a Statefull Firewall on Netronome SmartNICs using P4 and Micro-C. The Statefull Firewall makes use of Network Address Translation (NAT) to protect private IP's from untrusted external networks. All packets comming from a untrusted network are dropped unless a request was made from a private host to a host on the external network after which a connection is established and traffic is allowed between the two hosts.
 
-##Getting Started
+## Getting Started
 To get started quickly using the P4/C Firewall, use the State Table approach. For more background, research and comparison between different implementations, read further.
 
-##Background
+## Background
 
 The first approach was to keep state by dynamically adding P4 rules as new connections are established. The dynamic rules allow traffic through as incomming packets hits the dynamically added rules allowing the packets to be forwarded. A default rule is in place to handle packets where dynamic rules were not added yet, sending the packets to a python controller which will then add the new rules before sending the packet back to the SmartNIC to be forwarded. Timeouts involves keeping track of the frequency at which the added rules are hit and clearing inactive rules periodically. 
 
@@ -36,7 +36,5 @@ In our experience the pros of the state table approach greatly outweighs the dyn
 	- More advanced c progamming to impliment the primitive actions
 	- Number of flows limited by memory available for hash table and bucket size
 
-## Future Work
-Flow Cache entry clear and recirculate
 
 
