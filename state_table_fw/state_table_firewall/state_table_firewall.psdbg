@@ -1,15 +1,15 @@
 {
     "ProjectDebugOptions": {
         "#Info": {
-            "DebugConfiguration": "SIMULATION", 
+            "DebugConfiguration": "HARDWARE", 
             "ProjectName": "state_table_firewall", 
             "SimPerfStatsFilePath": "", 
             "Title": "Programmer Studio Debug Options File"
         }, 
         "#Version": "61.02", 
         "BreakpointSortOptions": {
-            "FilterByIndex": -1, 
-            "SecFilterIndex": -1, 
+            "FilterByIndex": 0, 
+            "SecFilterIndex": 0, 
             "ShowCodeBreakpoints": false, 
             "ShowDataBreakpoints": false, 
             "ShowMemoryBreakpoints": false
@@ -18,11 +18,51 @@
         "CreditTrackerWatches": {}, 
         "CustomOptions": {
             "ProjectWorkspace": {
-                "Options": [], 
+                "Options": [
+                    "[WorkState_v1_2]", 
+                    "ptn_Child1=Frames", 
+                    "[WorkState_v1_2.Frames]", 
+                    "ptn_Child1=ChildFrames", 
+                    "[WorkState_v1_2.Frames.ChildFrames]", 
+                    "ptn_Child1=Document-0", 
+                    "ptn_Child2=Document-1", 
+                    "ptn_Child3=Document-2", 
+                    "[WorkState_v1_2.Frames.ChildFrames.Document-0]", 
+                    "ptn_Child1=ViewFrame-0", 
+                    "[WorkState_v1_2.Frames.ChildFrames.Document-0.ViewFrame-0]", 
+                    "DocPathName=C:\\Users\\Jaco\\NFP_SDK\\state_table_firewall\\state_tables.p4", 
+                    "DocumentString=P4SRC", 
+                    "DocTemplateIndex=0", 
+                    "WindowPlacement=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPIPPPPPPPBOPPPPPPOEAAAAAAOEAAAAAALHFAAAAABDCAAAAA", 
+                    "IsActiveChildFrame=False", 
+                    "IsFrameVisible=True", 
+                    "[WorkState_v1_2.Frames.ChildFrames.Document-1]", 
+                    "ptn_Child1=ViewFrame-0", 
+                    "[WorkState_v1_2.Frames.ChildFrames.Document-1.ViewFrame-0]", 
+                    "DocPathName=C:\\Users\\Jaco\\NFP_SDK\\state_table_firewall\\main.p4", 
+                    "DocumentString=P4SRC", 
+                    "DocTemplateIndex=0", 
+                    "WindowPlacement=MCAAAAAACAAAAAAADAAAAAAAPPPPPPPPPPPPPPPPIPPPPPPPBOPPPPPPCIAAAAAACIAAAAAAPKFAAAAAFGCAAAAA", 
+                    "IsActiveChildFrame=True", 
+                    "IsFrameVisible=True", 
+                    "[WorkState_v1_2.Frames.ChildFrames.Document-2]", 
+                    "ptn_Child1=ViewFrame-0", 
+                    "[WorkState_v1_2.Frames.ChildFrames.Document-2.ViewFrame-0]", 
+                    "DocPathName=C:\\Users\\Jaco\\NFP_SDK\\state_table_firewall\\primitive_actions.c", 
+                    "DocumentString=P4SANDBOXCSRC", 
+                    "DocTemplateIndex=0", 
+                    "WindowPlacement=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPIPPPPPPPBOPPPPPPEDAAAAAAEDAAAAAANFFAAAAADBCAAAAA", 
+                    "IsActiveChildFrame=False", 
+                    "IsFrameVisible=True"
+                ], 
                 "Type": 4
             }, 
             "ThreadWindowWorkspace": {
-                "Options": [], 
+                "Options": [
+                    "[WorkState_v1_2]", 
+                    "ptn_Child1=Frames", 
+                    "ptn_Child2=ThreadWindows"
+                ], 
                 "Type": 5
             }
         }, 
@@ -30,7 +70,10 @@
         "ForeignModelOptions": {}, 
         "HardwareConfiguration": {
             "": {
-                "NoConnection": true
+                "ConnectNetwork": "sol", 
+                "HostDeviceNumber": "1", 
+                "HostPortNumber": "20407", 
+                "RTEPortNumber": "20207"
             }
         }, 
         "HardwarePollingOptions": {
@@ -108,16 +151,16 @@
                             "Displayed": true
                         }, 
                         "Microengine i1:0 Command": {
-                            "Displayed": true
+                            "Displayed": false
                         }, 
                         "Microengine i1:1 Command": {
-                            "Displayed": true
+                            "Displayed": false
                         }, 
                         "Microengine i1:2 Command": {
-                            "Displayed": true
+                            "Displayed": false
                         }, 
                         "Microengine i1:3 Command": {
-                            "Displayed": true
+                            "Displayed": false
                         }, 
                         "Microengine i32:0 Command": {
                             "Displayed": true
@@ -270,7 +313,7 @@
                             "Displayed": true
                         }, 
                         "Microengine i36:10 Command": {
-                            "Displayed": true
+                            "Displayed": false
                         }, 
                         "Microengine i36:11 Command": {
                             "Displayed": true
@@ -382,12 +425,7 @@
                                     "ReferencesDisplayed": true
                                 }
                             }, 
-                            "MicroEngineSliceHistory": {
-                                "": {
-                                    "DisplayCollapsed": true, 
-                                    "HistoryLabels": []
-                                }
-                            }
+                            "MicroEngineSliceHistory": {}
                         }, 
                         "i1.me1": {
                             "MicroEngineContexts": {
@@ -440,12 +478,7 @@
                                     "ReferencesDisplayed": true
                                 }
                             }, 
-                            "MicroEngineSliceHistory": {
-                                "": {
-                                    "DisplayCollapsed": true, 
-                                    "HistoryLabels": []
-                                }
-                            }
+                            "MicroEngineSliceHistory": {}
                         }, 
                         "i1.me2": {
                             "MicroEngineContexts": {
@@ -498,12 +531,7 @@
                                     "ReferencesDisplayed": true
                                 }
                             }, 
-                            "MicroEngineSliceHistory": {
-                                "": {
-                                    "DisplayCollapsed": true, 
-                                    "HistoryLabels": []
-                                }
-                            }
+                            "MicroEngineSliceHistory": {}
                         }, 
                         "i1.me3": {
                             "MicroEngineContexts": {
@@ -556,12 +584,7 @@
                                     "ReferencesDisplayed": true
                                 }
                             }, 
-                            "MicroEngineSliceHistory": {
-                                "": {
-                                    "DisplayCollapsed": true, 
-                                    "HistoryLabels": []
-                                }
-                            }
+                            "MicroEngineSliceHistory": {}
                         }, 
                         "i32.me0": {
                             "MicroEngineContexts": {
@@ -615,7 +638,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -673,7 +696,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -731,7 +754,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -789,7 +812,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -847,7 +870,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -905,7 +928,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -963,7 +986,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1021,7 +1044,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1079,7 +1102,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1137,7 +1160,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1195,7 +1218,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1253,7 +1276,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1311,7 +1334,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1369,7 +1392,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1427,7 +1450,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "nfd_pcie0_sb.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1485,7 +1508,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "nfd_pcie0_pd0.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1543,7 +1566,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1601,7 +1624,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1659,7 +1682,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1717,7 +1740,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1775,7 +1798,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1833,7 +1856,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1891,7 +1914,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -1949,7 +1972,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2007,7 +2030,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2065,7 +2088,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2123,7 +2146,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2181,7 +2204,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2239,7 +2262,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2297,7 +2320,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2355,7 +2378,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2413,7 +2436,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2471,7 +2494,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2529,7 +2552,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2587,7 +2610,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2645,7 +2668,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2703,7 +2726,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2761,7 +2784,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2819,7 +2842,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2877,7 +2900,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2935,7 +2958,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -2993,7 +3016,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3051,7 +3074,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3109,7 +3132,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3167,7 +3190,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3225,7 +3248,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3283,7 +3306,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3341,7 +3364,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3399,7 +3422,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3457,7 +3480,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3515,7 +3538,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "flowcache_timeout_emu0.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3573,7 +3596,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "app_master.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3631,7 +3654,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3689,7 +3712,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3747,7 +3770,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3805,7 +3828,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3863,7 +3886,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3921,7 +3944,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -3979,7 +4002,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -4037,7 +4060,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "pif_app_nfd.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -4095,7 +4118,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "nfd_pcie0_pci_out_me0.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -4153,7 +4176,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "nfd_pcie0_pci_in_gather.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -4211,7 +4234,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "nfd_pcie0_pci_in_issue0.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -4269,7 +4292,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "nfd_pcie0_notify.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -4327,7 +4350,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "gro0.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -4385,7 +4408,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "gro1.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -4443,7 +4466,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "nfd_svc.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -4501,7 +4524,7 @@
                                 }
                             }, 
                             "MicroEngineSliceHistory": {
-                                "": {
+                                "blm0.list": {
                                     "DisplayCollapsed": true, 
                                     "HistoryLabels": []
                                 }
@@ -4522,10 +4545,10 @@
         "MemoryWatches": {}, 
         "NBIPMModPipelines": {
             "8": {
-                "UniqueWatchID": 0
+                "UniqueWatchID": 2147483648
             }, 
             "9": {
-                "UniqueWatchID": 0
+                "UniqueWatchID": 2147483648
             }
         }, 
         "RunControlOptions": {}, 
@@ -4550,8 +4573,8 @@
         }, 
         "UniqueIDs": {
             "NextUniqueBreakpointGroupId": "0x80000000", 
-            "NextUniqueBreakpointId": "0x80000000", 
-            "NextUniqueWatchId": "0x80000000"
+            "NextUniqueBreakpointId": "0x8000026d", 
+            "NextUniqueWatchId": "0x80000002"
         }, 
         "WatchScriptsExeData": {}
     }

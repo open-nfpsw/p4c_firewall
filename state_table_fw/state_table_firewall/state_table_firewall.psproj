@@ -75,10 +75,8 @@
                     "PIF_APP_CONFIG=PIF_APP_DEFAULT", 
                     "NUM_IMU=1", 
                     "NUM_EMU=1", 
-                    "SIMULATION=1", 
-                    "PKTIO_6_0_2", 
-                    "PIF_DEBUG=1", 
-                    "PIF_GLOBAL_FLOWCACHE_DISABLED"
+                    "SIMULATION=0", 
+                    "PKTIO_6_0_2"
                 ], 
                 "rev_max": -1, 
                 "rev_min": 16
@@ -97,10 +95,10 @@
                     "settings": {
                         "additional_options": "", 
                         "all_header_ops": true, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "default_table_size": 65536, 
                         "define": [], 
-                        "flowcache_enabled": false, 
+                        "flowcache_enabled": true, 
                         "gro_enabled": true, 
                         "implicit_header_valid": true, 
                         "include_paths": [], 
@@ -136,6 +134,16 @@
                             "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c", 
                             "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c", 
                             "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\jenkins_hash.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_remove.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_timestamp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_lock.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\mem_atomic_indirect.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\mem_cam_add_inc.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\cluster_target.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\cam.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\rotate.c", 
                             "$(SDKDIR)\\p4\\components\\dcfl\\me\\lib\\dcfl\\libdcfl.c", 
                             "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\libblm.c", 
                             "$(SDKDIR)\\p4\\components\\gro\\libgro.c", 
@@ -153,7 +161,7 @@
                         "command_line": "", 
                         "context_mode": 8, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "APP_MES_LIST=\"((( 0 + 32) << 4) + ( 0 + 4)), ((( 1 + 32) << 4) + ( 0 + 4)), ((( 2 + 32) << 4) + ( 0 + 4)), ((( 3 + 32) << 4) + ( 0 + 4))\"", 
                             "NFD_CFG_NEXT_ME0=\"__nfp_idstr2meid(\\\"i36.me11\\\")\"", 
@@ -211,7 +219,7 @@
                         "command_line": "", 
                         "convert_warnings": false, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "BLM_0_ISLAND_48", 
                             "BLM_1_ISLAND_49", 
@@ -249,6 +257,72 @@
                     "target": "list", 
                     "tool": "assembler"
                 }, 
+                ".\\out\\flowcache_timeout_emu0.list\\flowcache_timeout_emu0.list": {
+                    "build_required": false, 
+                    "input_files": {
+                        "c_source_files": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\dcfl_init.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\system_init.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pif_pkt_mod_script.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\fc.c", 
+                            "$(SDKDIR)\\p4\\components\\dcfl\\me\\lib\\dcfl\\libdcfl.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\nfp\\libnfp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\std\\libstd.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c", 
+                            "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_remove.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_timeout.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_timeout_lock.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_timestamp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\cluster_target.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\mem_atomic_indirect.c"
+                        ], 
+                        "ext_obj_files": [], 
+                        "obj_files": []
+                    }, 
+                    "list_type": "component", 
+                    "settings": {
+                        "additional_options": "-Qno_decl_volatile -mIPOPT_nfp=2", 
+                        "alloc_microstore_size": 8192, 
+                        "allow_mixing_with_other_modules": false, 
+                        "asm_code_file": false, 
+                        "command_line": "", 
+                        "context_mode": 8, 
+                        "cycle_utilization": 100, 
+                        "debug_info": false, 
+                        "define": [
+                            "FC_TIMEOUT_EMU=0"
+                        ], 
+                        "edit_override": false, 
+                        "enable_cmd_intrinsics": false, 
+                        "endian_mode": 1, 
+                        "first_context": 0, 
+                        "force_includes": [
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\pif_app_nfd\\include\\config.h"
+                        ], 
+                        "include_std_c_source_file": true, 
+                        "inlining": 1, 
+                        "ixp_compat_mode": "full_nfp", 
+                        "local_memory_size": 4096, 
+                        "local_memory_start": 0, 
+                        "local_memory_use_all": true, 
+                        "me_indref_format": true, 
+                        "me_third_party_addr": false, 
+                        "mix_mode": false, 
+                        "mu_bulk_two_sig": false, 
+                        "mu_ign_bulk_align": false, 
+                        "neighbor_mode": 1, 
+                        "nfas_32preproc": false, 
+                        "num_contexts": 8, 
+                        "obj_target": false, 
+                        "optimize": 2, 
+                        "spill_control": 3, 
+                        "warning_level": 3
+                    }, 
+                    "target": "list", 
+                    "tool": "compiler"
+                }, 
                 ".\\out\\gro0.list\\gro0.list": {
                     "build_required": false, 
                     "input_file": "$(SDKDIR)\\p4\\components\\gro\\me\\gro_out.uc", 
@@ -264,7 +338,7 @@
                         "command_line": "", 
                         "convert_warnings": false, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "NFD_VERSION=0x03010000", 
                             "NFP_LIB_ANY_NFAS_VERSION", 
@@ -311,7 +385,7 @@
                         "command_line": "", 
                         "convert_warnings": false, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "NFD_VERSION=0x03010000", 
                             "NFP_LIB_ANY_NFAS_VERSION", 
@@ -369,7 +443,7 @@
                         "command_line": "", 
                         "context_mode": 4, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "NFD_IN_NOTIFY_DBG_CHKS", 
                             "NFD_IN_DATA_DMA_ME0=\"__nfp_idstr2meid(\\\"pcie0.me2\\\")\""
@@ -429,7 +503,7 @@
                         "command_line": "", 
                         "context_mode": 8, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "NFD_IN_DATA_DMA_ME0=\"__nfp_idstr2meid(\\\"pcie0.me2\\\")\"", 
                             "NFD_OUT_CACHE_ME=\"__nfp_idstr2meid(\\\"pcie0.me0\\\")\""
@@ -489,7 +563,7 @@
                         "command_line": "", 
                         "context_mode": 4, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "PCI_IN_ISSUE_DMA_IDX=0", 
                             "NFD_IN_NOTIFY_ME=\"__nfp_idstr2meid(\\\"pcie0.me3\\\")\""
@@ -549,7 +623,7 @@
                         "command_line": "", 
                         "context_mode": 8, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "NFD_CFG_NEXT_ME=\"__nfp_idstr2meid(\\\"i33.me10\\\")\"", 
                             "NFD_CFG_SIG_NEXT_ME=\"nfd_cfg_sig_sb\""
@@ -598,7 +672,7 @@
                         "command_line": "", 
                         "convert_warnings": false, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "NFD_OUT_STAGE_ME=__nfp_idstr2meid(\"i33.me10\")", 
                             "STAGE_BATCH_MANAGER_CTX=0", 
@@ -645,7 +719,7 @@
                         "command_line": "", 
                         "convert_warnings": false, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "STAGE_BATCH_MANAGER_CTX=0", 
                             "STAGE_BATCH_FIRST_WORKER=1", 
@@ -706,7 +780,7 @@
                         "command_line": "", 
                         "context_mode": 8, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "NFD_CFG_NEXT_ME0=\"__nfp_idstr2meid(\\\"i36.me11\\\")\"", 
                             "NFD_CFG_SIG_NEXT_ME0=\"nfd_cfg_sig_app_master0\"", 
@@ -757,6 +831,7 @@
                             "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\dcfl_init.c", 
                             "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\system_init.c", 
                             "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\pif_pkt_mod_script.c", 
+                            "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\apps\\common\\src\\fc.c", 
                             "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_action_common.c", 
                             "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_meter.c", 
                             "$(SDKDIR)\\p4\\components\\nfp_pif\\me\\lib\\pif\\src\\pif_lookup.c", 
@@ -784,6 +859,16 @@
                             "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pkt\\libpkt.c", 
                             "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\pktdma\\libpktdma.c", 
                             "$(SDKDIR)\\p4\\components\\flowenv\\me\\lib\\net\\libnet.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\jenkins_hash.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_remove.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_timestamp.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\flowcache\\_c\\flow_cache_lock.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\mem_atomic_indirect.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\mem_cam_add_inc.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\cluster_target.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\cam.c", 
+                            "$(SDKDIR)\\p4\\components\\flowcache\\me\\lib\\standardlibrary\\_c\\rotate.c", 
                             "$(SDKDIR)\\p4\\components\\dcfl\\me\\lib\\dcfl\\libdcfl.c", 
                             "$(SDKDIR)\\p4\\components\\flowenv\\me\\blocks\\blm\\libblm.c", 
                             "$(SDKDIR)\\p4\\components\\gro\\libgro.c", 
@@ -802,7 +887,7 @@
                         "command_line": "", 
                         "context_mode": 4, 
                         "cycle_utilization": 100, 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "define": [
                             "PIF_APP_MASTER_ME=0x204"
                         ], 
@@ -988,6 +1073,9 @@
                         "i36.me1": [
                             "pif_app_nfd.list"
                         ], 
+                        "i36.me10": [
+                            "flowcache_timeout_emu0.list"
+                        ], 
                         "i36.me11": [
                             "app_master.list"
                         ], 
@@ -1043,7 +1131,7 @@
                     "settings": {
                         "additional_options": "", 
                         "chip_name": "<unnamed>", 
-                        "debug_info": true, 
+                        "debug_info": false, 
                         "elf_64": true, 
                         "fill": "default", 
                         "fill_enable": false, 
@@ -1060,9 +1148,9 @@
                         "produce_u_cstore_ecc": true, 
                         "shared_codestores_enabled": false, 
                         "user_note": {
-                            "enabled": true, 
-                            "file": ".\\out\\pif_debug.json", 
-                            "name": "pif_debug_json"
+                            "enabled": false, 
+                            "file": "", 
+                            "name": ""
                         }
                     }, 
                     "target": "nffw", 
@@ -1376,16 +1464,16 @@
                 ".\\checksum.p4": {
                     "update": "YES"
                 }, 
-                ".\\includes\\headers.p4": {
+                ".\\headers.p4": {
                     "update": "YES"
                 }, 
-                ".\\includes\\intrinsic.p4": {
-                    "update": "YES"
-                }, 
-                ".\\includes\\parser.p4": {
+                ".\\intrinsic.p4": {
                     "update": "YES"
                 }, 
                 ".\\main.p4": {
+                    "update": "YES"
+                }, 
+                ".\\parser.p4": {
                     "update": "YES"
                 }, 
                 ".\\primitive_actions.c": {
@@ -1400,6 +1488,9 @@
                     "update": "YES"
                 }, 
                 ".\\user_cfg_port_vf.p4cfg": {
+                    "update": "YES"
+                }, 
+                ".\\user_cfg_vf_port.p4cfg": {
                     "update": "YES"
                 }, 
                 ".\\user_cfg_vfs.p4cfg": {

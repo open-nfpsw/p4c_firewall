@@ -8,7 +8,7 @@
                     }, 
                     "name": "update_state", 
                     "match": {
-                        "openstate.state": {
+                        "state_meta.state": {
                             "value": "0"
                         }, 
                         "standard_metadata.ingress_port": {
@@ -54,7 +54,7 @@
                     }, 
                     "name": "nat_int_ext_hit", 
                     "match": {
-                        "openstate.state": {
+                        "state_meta.state": {
                             "value": "1"
                         }, 
                         "standard_metadata.ingress_port": {
@@ -73,7 +73,7 @@
                     }, 
                     "name": "nat_ext_int_hit", 
                     "match": {
-                        "openstate.state": {
+                        "state_meta.state": {
                             "value": "1"
                         }, 
                         "standard_metadata.ingress_port": {
@@ -87,7 +87,7 @@
                     }, 
                     "name": "nat_ext_int_miss", 
                     "match": {
-                        "openstate.state": {
+                        "state_meta.state": {
                             "value": "0"
                         }, 
                         "standard_metadata.ingress_port": {
@@ -106,7 +106,7 @@
                     }, 
                     "name": "nat_int_ext_miss", 
                     "match": {
-                        "openstate.state": {
+                        "state_meta.state": {
                             "value": "0"
                         }, 
                         "standard_metadata.ingress_port": {

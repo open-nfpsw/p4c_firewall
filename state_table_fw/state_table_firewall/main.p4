@@ -40,6 +40,9 @@ table nat {
     reads {
         standard_metadata.ingress_port : exact;
         state_meta.state : exact;
+//        ipv4.dstAddr : ternary;
+//        ipv4.srcAddr : ternary;
+//        ipv4.dstAddr : lpm;
     }
     actions {
         nat_int_ext_hit;

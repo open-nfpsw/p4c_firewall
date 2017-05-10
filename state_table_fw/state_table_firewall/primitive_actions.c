@@ -6,6 +6,15 @@
 #include <pif_common.h>
 #include <std/hash.h>
 
+
+#include < nfp/mem_ring.h >
+MEM_RING_INIT_MU(port_allocation_jndb,
+                 2097152,
+                 emem0);
+MEM_RING_INIT_MU(port_allocation_jndb2,
+                 2097152,
+                 emem0);
+
 #define IP_ADDR(a, b, c, d) ((a << 24) | (b << 16) | (c << 8) | d)
 
 #define CALC_BIT_TO_SET_CLR(A,k) (A = (1 << (k%32)) )
@@ -48,7 +57,7 @@ volatile __declspec(i28.imem, shared, export) uint32_t cntr_before_port_assign =
 volatile __declspec(i28.imem, shared, export) uint32_t cntr_after_port_assign = 0;
 volatile __declspec(i28.imem, shared, export) uint32_t cntr_port_not_assign = 0;
 volatile __declspec(i28.imem, shared, export) uint32_t search_non_zero = 0;
-
+volatile __declspec(i28.imem, shared, export) uint32_t public_ports_timedout_found = 0;
 
 
 
@@ -60,10 +69,10 @@ int pif_plugin_get_public_port(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match
     __gpr uint32_t my_public_ip = cur_public_ip; /* TODO change to atomic read maybe */
     __xrw uint32_t my_cur_port_xrw;
     __xrw uint32_t my_cur_ip_xrw;
-    __xrw uint32_t bit_to_set;
+    __xrw uint32_t bit_to_set_xrw;
     __xwrite uint32_t min_port_num = MIN_CURRENT_PORT_VALUE;
     __xwrite uint32_t reset_cur_ip_wr = 0;
-    __gpr uint32_t tmp_bit_to_set;
+    __gpr uint32_t bit_to_set;
 
     uint32_t all_ports_used = 0;
 
@@ -87,9 +96,6 @@ int pif_plugin_get_public_port(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match
            return PIF_PLUGIN_RETURN_DROP;
         }
 
-        ipv4->srcAddr = public_ips[my_public_ip];
-        tcp->srcPort = cur_port[my_public_ip];
-
         /* get the in-use bit field offset, next port to test is in cur_port */
         my_cur_port_xrw = 1;
         mem_test_add(&my_cur_port_xrw, &cur_port[my_public_ip], 1 << 2);
@@ -99,9 +105,18 @@ int pif_plugin_get_public_port(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match
 
         /* If we have a valid port number, try to set in_use */
         CALC_BIT_TO_SET_CLR(bit_to_set, my_cur_port_xrw);
-        tmp_bit_to_set = bit_to_set;
-        mem_test_set(&bit_to_set, &ports[my_public_ip][my_cur_port_xrw/32], 1 << 2);
-    } while (bit_to_set&tmp_bit_to_set == 0x01);
+        bit_to_set_xrw = bit_to_set;
+        mem_test_set(&bit_to_set_xrw, &ports[my_public_ip][my_cur_port_xrw/32], 1 << 2);
+
+        if (!(bit_to_set&bit_to_set_xrw)) {
+            ipv4->srcAddr = public_ips[my_public_ip];
+            tcp->srcPort = my_cur_port_xrw;
+            // JDBG(port_allocation_jndb, my_cur_port_xrw);
+            break;
+        }
+
+    } while (1);
+
 
     mem_incr32((__mem void *)&cntr_after_port_assign);
 
@@ -303,11 +318,12 @@ int pif_plugin_state_update(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match_da
 int pif_plugin_clear_public_ports(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match_data) {
 
     __addr40 bucket_entry_info *b_info;
+    __xread bucket_entry_info b_info_r;
     __xread uint32_t hash_key_r[3];
-    volatile uint32_t bit_to_clr;
+    __gpr uint32_t bit_to_clr;
     __xwrite uint32_t bit_to_clr_wr;
     uint32_t public_ip_indx = 0;
-    volatile uint32_t clr_used_port_indx;
+    __gpr uint32_t clr_used_port_indx;
     __xwrite uint32_t clr_used_port_indx_w = 0;
     uint32_t i = 0;
     uint32_t j = 0;
@@ -315,36 +331,38 @@ int pif_plugin_clear_public_ports(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *ma
     for (i=0;i<STATE_TABLE_SIZE;i++) {
         for (j=0;j<BUCKET_SIZE;j++) {
             mem_read_atomic(hash_key_r, state_hashtable[i].entry[j].key, sizeof(hash_key_r)); /* TODO: Read whole bunch at a time */
+
             if (hash_key_r[0] == 0) {
                 continue;
             }
 
-            b_info = &state_hashtable[i].entry[j].bucket_entry_info_value;
-            if (b_info->hit_count == 0) {
+            b_info = &state_hashtable[i].entry[j].bucket_entry_info_value;            
+            mem_read_atomic(&b_info_r,b_info,sizeof(b_info_r));
+            if (b_info_r.hit_count == 0) {
                 mem_incr32((__mem void *)&search_non_zero);
                 continue;
             }
 
-            if (b_info->hit_count == 0xFFFFFFFF) {
-                __xwrite uint32_t clear_mem[8] = {0};
+            if (b_info_r.hit_count == 0xFFFFFFFF) {
+                __xwrite uint32_t clear_mem[8] = {0};                                
+
                 /* private entry so b_info contains public ip/port for NAT */
-                if (b_info->public_private == 1) {
-                    CALC_BIT_TO_SET_CLR(bit_to_clr,b_info->port);
+                if (b_info_r.public_private == 1) {
+                    CALC_BIT_TO_SET_CLR(bit_to_clr,b_info_r.port);
                     bit_to_clr_wr = bit_to_clr;
-                    public_ip_indx = 0;
-                    for (public_ip_indx;public_ip_indx<MAX_NUM_PUBLIC_IPS;public_ip_indx++) {
-                        if (b_info->ip == public_ips[public_ip_indx]) {
+                    for (public_ip_indx=0;public_ip_indx<MAX_NUM_PUBLIC_IPS;public_ip_indx++) {
+                        if (b_info_r.ip == public_ips[public_ip_indx]) {
                             break;
                         }
                     }
-                    mem_bitclr(&bit_to_clr_wr,&ports[public_ip_indx][b_info->port/32],sizeof(bit_to_clr_wr));
-                }
-                //mem_write_atomic(clear_mem,&state_hashtable[i].entry[j],sizeof(clear_mem));
-                mem_write_atomic(clear_mem,&state_hashtable[i].entry[j],sizeof(clear_mem)); /*Do this in one write...*/
-                // mem_write_atomic(&clear_mem[8],&b_info->hit_count_updated,4);                    /*Do this in one write...*/
+                    mem_incr32((__mem void *)&public_ports_timedout_found);
+                    mem_bitclr(&bit_to_clr_wr,&ports[public_ip_indx][b_info_r.port/32],sizeof(bit_to_clr_wr));
+                    // JDBG(port_allocation_jndb, b_info_r.port);
+                }                
+                mem_write_atomic(clear_mem,&state_hashtable[i].entry[j],sizeof(clear_mem));                 
 
             } else {
-                __xwrite uint32_t hit_count_update = 0xFFFFFFFF; //b_info->hit_count;
+                __xwrite uint32_t hit_count_update = 0xFFFFFFFF;
                 mem_write_atomic(&hit_count_update,&b_info->hit_count,sizeof(hit_count_update));
             }
         }

@@ -1,6 +1,6 @@
 # P4/C Firewall - Two Different Approaches
 
-This repository contains two different approaches taken to implement a Statefull Firewall on Netronome SmartNICs using P4 and Micro-C. The Statefull Firewall makes use of Network Address Translation (NAT) to protect private IP's from untrusted external networks. All packets comming from a untrusted network are dropped unless a request was made from a private host to a host on the external network after which a connection is established and traffic is allowed between the two hosts.
+This repository contains two different approaches taken to implement a Statefull Firewall on Netronome SmartNICs using P4 and Micro-C. The Statefull Firewall makes use of Network Address Translation (NAT) to protect private IP's from untrusted external networks. All packets comming from an untrusted network are dropped unless a request was made from a private host to a host on the external network after which a connection is established and traffic is allowed between the two hosts.
 
 ## Getting Started
 To get started quickly using the P4/C Firewall, use the State Table approach. For more background, research and comparison between different implementations, read further.
