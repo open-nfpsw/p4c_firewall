@@ -87,3 +87,20 @@ header_type meta_t {
 }
 
 metadata meta_t meta;
+
+header_type state_meta_t {
+    fields {    
+        state : 32;                             // state
+        ip : 32;                                // ip used for NAT
+        port : 16;                              // port used for NAT
+        hit_count : 32;                         // number of hits since connection was made
+
+///        nat_ip : 32;                            // private ip kept for hashfunction in update_state
+//        nat_port : 16;                          // private port kept for hashfunction in update_state
+
+        incoming_port : 1;                      //Trusted = 0, Untrusted = 1
+    }
+}
+
+metadata state_meta_t state_meta;
+

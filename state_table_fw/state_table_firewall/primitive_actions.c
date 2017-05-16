@@ -5,15 +5,7 @@
 #include <nfp_override.h>
 #include <pif_common.h>
 #include <std/hash.h>
-
-
-#include < nfp/mem_ring.h >
-MEM_RING_INIT_MU(port_allocation_jndb,
-                 2097152,
-                 emem0);
-MEM_RING_INIT_MU(port_allocation_jndb2,
-                 2097152,
-                 emem0);
+#include <nfp/me.h>
 
 #define IP_ADDR(a, b, c, d) ((a << 24) | (b << 16) | (c << 8) | d)
 
@@ -39,7 +31,9 @@ typedef struct bucket_entry {
     bucket_entry_info bucket_entry_info_value;
 }bucket_entry;
 
+
 typedef struct bucket_list {
+    // uint32_t ctl;
     struct bucket_entry entry[BUCKET_SIZE];
 }bucket_list;
 
@@ -53,20 +47,118 @@ __shared __export __imem uint32_t cur_public_ip = 0;
 
 
 /* Stats Counters */
-volatile __declspec(i28.imem, shared, export) uint32_t cntr_before_port_assign = 0;
-volatile __declspec(i28.imem, shared, export) uint32_t cntr_after_port_assign = 0;
-volatile __declspec(i28.imem, shared, export) uint32_t cntr_port_not_assign = 0;
-volatile __declspec(i28.imem, shared, export) uint32_t search_non_zero = 0;
-volatile __declspec(i28.imem, shared, export) uint32_t public_ports_timedout_found = 0;
+volatile __declspec(i28.imem, shared, export) uint32_t int_ext_hits = 0;
+volatile __declspec(i28.imem, shared, export) uint32_t bucket_full_drop = 0;
+volatile __declspec(i28.imem, shared, export) uint32_t bucket_full_1_drop = 0;
+volatile __declspec(i28.imem, shared, export) uint32_t no_port_available_drop = 0;
+volatile __declspec(i28.imem, shared, export) uint32_t never_found_drop = 0;
+volatile __declspec(i28.imem, shared, export) uint32_t not_ipv4_drop = 0;
+volatile __declspec(i28.imem, shared, export) uint32_t ext_int_drop = 0;
+volatile __declspec(i28.imem, shared, export) uint32_t controller_pkt_drop = 0;
 
 
+int pif_plugin_state_update(EXTRACTED_HEADERS_T *headers,
+                        MATCH_DATA_T *match_data)
+{
+
+    PIF_PLUGIN_ipv4_T *ipv4;
+    PIF_PLUGIN_tcp_T *tcp;
+    volatile uint32_t update_hash_value;
+    uint32_t update_hash_key[3];
+    volatile uint32_t response_hash_value;
+    uint32_t response_hash_key[3];
+    uint32_t pubIP;
+    uint16_t pubPort;
+
+    __addr40 __emem bucket_entry_info *b_info;
+    __xwrite bucket_entry_info tmp_b_info;
+    __addr40 uint32_t *key_addr;
+    __xrw uint32_t key_val_rw[3];
+
+    uint32_t i = 0;
+    
+    ipv4 = pif_plugin_hdr_get_ipv4(headers);
+    tcp = pif_plugin_hdr_get_tcp(headers);
+
+    /* TODO: Add another field to indicate direction ?*/
+    update_hash_key[0] = ipv4->srcAddr;
+    update_hash_key[1] = ipv4->dstAddr;
+    update_hash_key[2] = (tcp->srcPort << 16) | tcp->dstPort;
+
+    key_val_rw[0] = ipv4->srcAddr;
+    key_val_rw[1] = ipv4->dstAddr;
+    key_val_rw[2] = (tcp->srcPort << 16) | tcp->dstPort;
+
+    //TODO: Change CRC to toeplitz:
+    //update_hash_value = hash_toeplitz();
+    //response_hash_value = hash_toeplitz();
+    update_hash_value = hash_me_crc32((void *)update_hash_key,sizeof(update_hash_key), 1);
+    update_hash_value &= (STATE_TABLE_SIZE);
+
+    for (;i<BUCKET_SIZE;i++) {
+        if (state_hashtable[update_hash_value].entry[i].key[0] == 0) {
+            b_info = &state_hashtable[update_hash_value].entry[i].bucket_entry_info_value;
+            key_addr = state_hashtable[update_hash_value].entry[i].key;
+            break;
+        }
+    }
+    /* If bucket full, drop */
+    if (i == BUCKET_SIZE)
+        return PIF_PLUGIN_RETURN_DROP;
+
+
+    pubIP = pif_plugin_meta_get__state_meta__ip(headers);
+    pubPort = pif_plugin_meta_get__state_meta__port(headers);;
+
+    tmp_b_info.state = 1;
+    tmp_b_info.ip = pubIP;
+    tmp_b_info.port = pubPort;
+    tmp_b_info.public_private = 1;
+    tmp_b_info.hit_count = 1;
+
+    mem_write_atomic(&tmp_b_info, b_info, sizeof(tmp_b_info));
+    mem_write_atomic(key_val_rw, key_addr, sizeof(key_val_rw));
+
+    response_hash_key[0] = ipv4->dstAddr;
+    response_hash_key[1] = pubIP;
+    response_hash_key[2] = (tcp->dstPort << 16) | pubPort;
+
+    key_val_rw[0] = ipv4->dstAddr;
+    key_val_rw[1] = pubIP;
+    key_val_rw[2] = (tcp->dstPort << 16) | pubPort;
+
+    response_hash_value = hash_me_crc32((void *)response_hash_key,sizeof(response_hash_key), 1);
+    response_hash_value &= (STATE_TABLE_SIZE);
+  
+    for (i=0;i<BUCKET_SIZE;i++) {
+        if (state_hashtable[response_hash_value].entry[i].key[0] == 0) {
+            b_info = &state_hashtable[response_hash_value].entry[i].bucket_entry_info_value;
+            key_addr = state_hashtable[response_hash_value].entry[i].key;
+            break;
+        }
+    }
+    /* If bucket full, drop */
+    if (i == BUCKET_SIZE)
+        return PIF_PLUGIN_RETURN_DROP;
+     
+
+    tmp_b_info.state = 1;
+    tmp_b_info.ip = ipv4->srcAddr;
+    tmp_b_info.port = tcp->srcPort;
+    tmp_b_info.public_private = 2;
+    tmp_b_info.hit_count = 1;
+
+    mem_write_atomic(&tmp_b_info, b_info, sizeof(tmp_b_info));
+    mem_write_atomic(key_val_rw, key_addr, sizeof(key_val_rw));
+    return PIF_PLUGIN_RETURN_FORWARD;
+}
 
 int pif_plugin_get_public_port(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match_data)
 {
     PIF_PLUGIN_ipv4_T *ipv4;
     PIF_PLUGIN_tcp_T *tcp;
 
-    __gpr uint32_t my_public_ip = cur_public_ip; /* TODO change to atomic read maybe */
+    __gpr uint32_t my_public_ip = cur_public_ip;
     __xrw uint32_t my_cur_port_xrw;
     __xrw uint32_t my_cur_ip_xrw;
     __xrw uint32_t bit_to_set_xrw;
@@ -77,22 +169,16 @@ int pif_plugin_get_public_port(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match
     uint32_t all_ports_used = 0;
 
     if (!pif_plugin_hdr_ipv4_present(headers)) {
+        mem_incr32((__mem void *)&not_ipv4_drop);
         return PIF_PLUGIN_RETURN_DROP;
     }
 
-    ipv4 = pif_plugin_hdr_get_ipv4(headers);
-    tcp = pif_plugin_hdr_get_tcp(headers);
-
-    pif_plugin_meta_set__state_meta__nat_ip(headers, ipv4->srcAddr);
-    pif_plugin_meta_set__state_meta__nat_port(headers, tcp->srcPort);
-
     do
     {
-        mem_incr32((__mem void *)&cntr_before_port_assign);
         mem_incr32(&all_ports_used);
 
         if (all_ports_used > 0xFFFF) {
-           mem_incr32((__mem void *)&cntr_port_not_assign);
+           mem_incr32((__mem void *)&no_port_available_drop);
            return PIF_PLUGIN_RETURN_DROP;
         }
 
@@ -108,20 +194,13 @@ int pif_plugin_get_public_port(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match
         bit_to_set_xrw = bit_to_set;
         mem_test_set(&bit_to_set_xrw, &ports[my_public_ip][my_cur_port_xrw/32], 1 << 2);
 
-        if (!(bit_to_set&bit_to_set_xrw)) {
-            ipv4->srcAddr = public_ips[my_public_ip];
-            tcp->srcPort = my_cur_port_xrw;
-            // JDBG(port_allocation_jndb, my_cur_port_xrw);
+        if (!(bit_to_set&bit_to_set_xrw)) {           
+            pif_plugin_meta_set__state_meta__ip(headers, public_ips[my_public_ip]);
+            pif_plugin_meta_set__state_meta__port(headers, my_cur_port_xrw);
             break;
         }
 
     } while (1);
-
-
-    mem_incr32((__mem void *)&cntr_after_port_assign);
-
-
-    /* Incr IP for next NAT - Which one is better? */
 
     if (num_used_public_ips > 1) {
         my_public_ip +=1;
@@ -130,17 +209,6 @@ int pif_plugin_get_public_port(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match
         my_cur_ip_xrw = my_public_ip;
         mem_write_atomic(&my_cur_ip_xrw, &cur_public_ip, 1 << 2);
     }
-
-    /* Incr IP for next NAT - Which one is better? */
-    /*
-    if (cur_public_ip < num_used_public_ips - 1)
-        mem_incr32(&cur_public_ip);
-    else
-        mem_write_atomic(&reset_cur_ip_wr, &cur_public_ip, 4);
-    */
-
-    //TODO: clear flowcache entry for this flow so that another action happens based on updated state. (bump rule version? - wouldn't want to clear whole flowcash)
-
 
     return PIF_PLUGIN_RETURN_FORWARD;
 }
@@ -155,8 +223,10 @@ int pif_plugin_lookup_state(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match_da
     __xread uint32_t hash_key_r[3];
     __addr40 bucket_entry_info *b_info;
 
-    uint32_t i = 0;
+    uint32_t i;
     int found = 0;
+    __xrw uint32_t first_packet_xrw = 1;
+    int loopcount = 0;
 
     ipv4 = pif_plugin_hdr_get_ipv4(headers);
     tcp = pif_plugin_hdr_get_tcp(headers);
@@ -166,151 +236,55 @@ int pif_plugin_lookup_state(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match_da
     hash_key[1] = ipv4->dstAddr;
     hash_key[2] = (tcp->srcPort << 16) | tcp->dstPort;
 
-    //TODO: Change to toeplitz hash (what is secret key?):
+    //TODO: Change to toeplitz hash:
     //hash_value = hash_toeplitz(&hash_key,sizeof(hash_key),);
-
     //hash_value = hash_me_crc32((void *)hash_key,sizeof(hash_key), 10);
     hash_value = hash_me_crc32((void *) hash_key,sizeof(hash_key), 1);
-    hash_value &= (0x0000FFFF);
-
-
-    for (;i<BUCKET_SIZE;i++) {
+    hash_value &= (STATE_TABLE_SIZE);   
+        
+    for (i = 0; i < BUCKET_SIZE; i++) {
         mem_read_atomic(hash_key_r, state_hashtable[hash_value].entry[i].key, sizeof(hash_key_r)); /* TODO: Read whole bunch at a time */
 
-
-        if (hash_key_r[0] == 0)
+        if (hash_key_r[0] == 0) {
             continue;
-
-        //memcmp(); ??
+        }
+        
         if (hash_key_r[0] == hash_key[0] &&
             hash_key_r[1] == hash_key[1] &&
-            hash_key_r[2] == hash_key[2] ) { /* && hash_key_r[0] != 0 ????? */
+            hash_key_r[2] == hash_key[2] ) { /* Hit */
+            
+            __xrw uint32_t count;
+
             b_info = &state_hashtable[hash_value].entry[i].bucket_entry_info_value;
-            found = 1;
-            break;
+            pif_plugin_meta_set__state_meta__ip(headers, b_info->ip);
+            pif_plugin_meta_set__state_meta__port(headers, b_info->port);
+
+            count = 1;
+            mem_test_add(&count,&b_info->hit_count, 1 << 2);
+            if (count == 0xFFFFFFFF-1) { /* Never incr to 0 or 2^32 */
+                count = 2;
+                mem_add32(&count,&b_info->hit_count, 1 << 2);
+            } else if (count == 0xFFFFFFFF) {
+                mem_incr32(&b_info->hit_count);
+            }
+            mem_incr32((__mem void *)&int_ext_hits);        
+            return PIF_PLUGIN_RETURN_FORWARD;
         }
     }
-
-    if (found) {
-        __xrw uint32_t count;
-
-        /* Are these still needed on P4 side? State is needed on P4 side */
-        pif_plugin_meta_set__state_meta__state(headers, b_info->state);
-        pif_plugin_meta_set__state_meta__ip(headers, b_info->ip);
-        pif_plugin_meta_set__state_meta__port(headers, b_info->port);
-        pif_plugin_meta_set__state_meta__hit_count(headers, b_info->hit_count);
-
-        count = 1;
-        mem_test_add(&count,&b_info->hit_count, 1 << 2);
-        if (count == 0xFFFFFFFF-1) { /* Never incr to 0 or 2^32 */
-            count = 2;
-            mem_add32(&count,&b_info->hit_count, 1 << 2);
-        } else if (count == 0xFFFFFFFF) {
-            mem_incr32(&b_info->hit_count);
-        }
-    }
-
-    return PIF_PLUGIN_RETURN_FORWARD;
-}
-
-
-
-int pif_plugin_state_update(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *match_data) {
-
-    PIF_PLUGIN_ipv4_T *ipv4;
-    PIF_PLUGIN_tcp_T *tcp;
-    volatile uint32_t update_hash_value;
-    uint32_t update_hash_key[3];
-    volatile uint32_t response_hash_value;
-    uint32_t response_hash_key[3];
-    uint32_t pvtIP;
-    uint16_t pvtPort;
-
-    __addr40 __emem bucket_entry_info *b_info;
-    __xwrite bucket_entry_info tmp_b_info;
-    __addr40 uint32_t *key_addr;
-    __xrw uint32_t key_val_rw[3];
-
-    uint32_t i = 0;
-    uint32_t j = 0;
-
-    ipv4 = pif_plugin_hdr_get_ipv4(headers);
-    tcp = pif_plugin_hdr_get_tcp(headers);
-
-    /* TODO: Add another field to indicate direction ?*/
-    pvtIP = pif_plugin_meta_get__state_meta__nat_ip(headers);
-    pvtPort = pif_plugin_meta_get__state_meta__nat_port(headers);
-    update_hash_key[0] = pvtIP;
-    update_hash_key[1] = ipv4->dstAddr;
-    update_hash_key[2] = (pvtPort << 16) | tcp->dstPort;
-
-    key_val_rw[0] = pvtIP;
-    key_val_rw[1] = ipv4->dstAddr;
-    key_val_rw[2] = (pvtPort << 16) | tcp->dstPort;
-
-
-    //TODO: Change CRC to toeplitz (what is secret key?):
-    //update_hash_value = hash_toeplitz();
-    //response_hash_value = hash_toeplitz();
-    update_hash_value = hash_me_crc32((void *)update_hash_key,sizeof(update_hash_key), 1);
-    update_hash_value &= (0x0000FFFF);
-
-    for (;i<BUCKET_SIZE;i++) {
-        if (state_hashtable[update_hash_value].entry[i].key[0] == 0) {
-            b_info = &state_hashtable[update_hash_value].entry[i].bucket_entry_info_value;
-            key_addr = state_hashtable[update_hash_value].entry[i].key;
-            break;
-        }
-    }
-    /* If bucket full, drop */
-    if (i == BUCKET_SIZE)
+   
+    if (pif_plugin_meta_get__state_meta__incoming_port(headers) == 1) {  /* Ext_Int_Miss -> Drop */
+        mem_incr32((__mem void *)&ext_int_drop);
         return PIF_PLUGIN_RETURN_DROP;
-
-
-    tmp_b_info.state = 1;
-    tmp_b_info.ip = ipv4->srcAddr;
-    tmp_b_info.port = tcp->srcPort;
-    tmp_b_info.public_private = 1;
-    tmp_b_info.hit_count = 1;
-    // tmp_b_info.hit_count_updated = 0xFFFFFFFF;
-
-    mem_write_atomic(&tmp_b_info, b_info, sizeof(tmp_b_info));
-    mem_write_atomic(key_val_rw, key_addr, sizeof(key_val_rw));
-    //mem_write_atomic(update_hash_key, key_addr, sizeof(update_hash_key));
-
-    response_hash_key[0] = ipv4->dstAddr;
-    response_hash_key[1] = ipv4->srcAddr;
-    response_hash_key[2] = (tcp->dstPort << 16) | tcp->srcPort;
-
-    key_val_rw[0] = ipv4->dstAddr;
-    key_val_rw[1] = ipv4->srcAddr;
-    key_val_rw[2] = (tcp->dstPort << 16) | tcp->srcPort;
-
-    response_hash_value = hash_me_crc32((void *)response_hash_key,sizeof(response_hash_key), 1);
-    response_hash_value &= (0x0000FFFF);
-
-    for (i=0;i<BUCKET_SIZE;i++) {
-        if (state_hashtable[response_hash_value].entry[i].key[0] == 0) {
-            b_info = &state_hashtable[response_hash_value].entry[i].bucket_entry_info_value;
-            key_addr = state_hashtable[response_hash_value].entry[i].key;
-            break;
-        }
-    }
-    /* If bucket full, drop */
-    if (i == BUCKET_SIZE)
-        return PIF_PLUGIN_RETURN_DROP;
-
-    tmp_b_info.state = 1;
-    tmp_b_info.ip = pvtIP;
-    tmp_b_info.port = pvtPort;
-    tmp_b_info.public_private = 2;
-    tmp_b_info.hit_count = 1;
-    // tmp_b_info.hit_count_updated = 0xFFFFFFFF;
-
-    mem_write_atomic(&tmp_b_info, b_info, sizeof(tmp_b_info));
-    mem_write_atomic(key_val_rw, key_addr, sizeof(key_val_rw));
-    //mem_write_atomic(response_hash_key, key_addr, sizeof(response_hash_key));
-
+    } else { /* Int_Ext_Miss -> Assign port and update state table */
+ 
+                if (pif_plugin_get_public_port(headers, match_data) == PIF_PLUGIN_RETURN_DROP) { 
+                    return PIF_PLUGIN_RETURN_DROP;
+                }
+            
+                if (pif_plugin_state_update(headers, match_data) == PIF_PLUGIN_RETURN_DROP) {
+                    return PIF_PLUGIN_RETURN_DROP;
+                }
+    } 
     return PIF_PLUGIN_RETURN_FORWARD;
 }
 
@@ -339,7 +313,6 @@ int pif_plugin_clear_public_ports(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *ma
             b_info = &state_hashtable[i].entry[j].bucket_entry_info_value;            
             mem_read_atomic(&b_info_r,b_info,sizeof(b_info_r));
             if (b_info_r.hit_count == 0) {
-                mem_incr32((__mem void *)&search_non_zero);
                 continue;
             }
 
@@ -355,9 +328,7 @@ int pif_plugin_clear_public_ports(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *ma
                             break;
                         }
                     }
-                    mem_incr32((__mem void *)&public_ports_timedout_found);
                     mem_bitclr(&bit_to_clr_wr,&ports[public_ip_indx][b_info_r.port/32],sizeof(bit_to_clr_wr));
-                    // JDBG(port_allocation_jndb, b_info_r.port);
                 }                
                 mem_write_atomic(clear_mem,&state_hashtable[i].entry[j],sizeof(clear_mem));                 
 
@@ -367,5 +338,6 @@ int pif_plugin_clear_public_ports(EXTRACTED_HEADERS_T *headers, MATCH_DATA_T *ma
             }
         }
     }
+    mem_incr32((__mem void *)&controller_pkt_drop);
     return PIF_PLUGIN_RETURN_DROP;
 }
