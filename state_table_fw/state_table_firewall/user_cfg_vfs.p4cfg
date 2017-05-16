@@ -1,46 +1,5 @@
 {
     "tables": {
-        "update_state": {
-            "rules": [
-                {
-                    "action": {
-                        "type": "update_state_table"
-                    }, 
-                    "name": "update_state", 
-                    "match": {
-                        "state_meta.state": {
-                            "value": "0"
-                        }, 
-                        "standard_metadata.ingress_port": {
-                            "value": "v0.0"
-                        }
-                    }
-                }
-            ]
-        }, 
-        "state_lookup": {
-            "default_rule": {
-                "action": {
-                    "type": "lookup_state_table"
-                }, 
-                "name": "state_lookup"
-            }
-        }, 
-        "controller_pkt": {
-            "rules": [
-                {
-                    "action": {
-                        "type": "clear_ports"
-                    }, 
-                    "name": "controller_pkt", 
-                    "match": {
-                        "standard_metadata.ingress_port": {
-                            "value": "v0.2"
-                        }
-                    }
-                }
-            ]
-        }, 
         "nat": {
             "rules": [
                 {
@@ -50,13 +9,10 @@
                                 "value": "v0.1"
                             }
                         }, 
-                        "type": "nat_int_ext_hit"
+                        "type": "nat_int_ext"
                     }, 
-                    "name": "nat_int_ext_hit", 
+                    "name": "nat_int_ext", 
                     "match": {
-                        "state_meta.state": {
-                            "value": "1"
-                        }, 
                         "standard_metadata.ingress_port": {
                             "value": "v0.0"
                         }
@@ -69,48 +25,27 @@
                                 "value": "v0.0"
                             }
                         }, 
-                        "type": "nat_ext_int_hit"
+                        "type": "nat_ext_int"
                     }, 
-                    "name": "nat_ext_int_hit", 
+                    "name": "nat_ext_int", 
                     "match": {
-                        "state_meta.state": {
-                            "value": "1"
-                        }, 
                         "standard_metadata.ingress_port": {
                             "value": "v0.1"
                         }
                     }
-                }, 
+                }
+            ]
+        }, 
+        "controller_pkt": {
+            "rules": [
                 {
                     "action": {
-                        "type": "nat_ext_int_miss"
+                        "type": "clear_ports"
                     }, 
-                    "name": "nat_ext_int_miss", 
+                    "name": "controller_pkt", 
                     "match": {
-                        "state_meta.state": {
-                            "value": "0"
-                        }, 
                         "standard_metadata.ingress_port": {
-                            "value": "v0.1"
-                        }
-                    }
-                }, 
-                {
-                    "action": {
-                        "data": {
-                            "port": {
-                                "value": "v0.1"
-                            }
-                        }, 
-                        "type": "nat_int_ext_miss"
-                    }, 
-                    "name": "nat_int_ext_miss", 
-                    "match": {
-                        "state_meta.state": {
-                            "value": "0"
-                        }, 
-                        "standard_metadata.ingress_port": {
-                            "value": "v0.0"
+                            "value": "v0.2"
                         }
                     }
                 }

@@ -1,46 +1,5 @@
 {
     "tables": {
-        "update_state": {
-            "rules": [
-                {
-                    "action": {
-                        "type": "update_state_table"
-                    }, 
-                    "name": "update_state", 
-                    "match": {
-                        "state_meta.state": {
-                            "value": "0"
-                        }, 
-                        "standard_metadata.ingress_port": {
-                            "value": "p0"
-                        }
-                    }
-                }
-            ]
-        }, 
-        "state_lookup": {
-            "default_rule": {
-                "action": {
-                    "type": "lookup_state_table"
-                }, 
-                "name": "state_lookup"
-            }
-        }, 
-        "controller_pkt": {
-            "rules": [
-                {
-                    "action": {
-                        "type": "clear_ports"
-                    }, 
-                    "name": "controller_pkt", 
-                    "match": {
-                        "standard_metadata.ingress_port": {
-                            "value": "v0.2"
-                        }
-                    }
-                }
-            ]
-        }, 
         "nat": {
             "rules": [
                 {
@@ -50,13 +9,10 @@
                                 "value": "p4"
                             }
                         }, 
-                        "type": "nat_int_ext_hit"
+                        "type": "nat_int_ext"
                     }, 
-                    "name": "nat_int_ext_hit", 
+                    "name": "nat_int_ext", 
                     "match": {
-                        "state_meta.state": {
-                            "value": "1"
-                        }, 
                         "standard_metadata.ingress_port": {
                             "value": "p0"
                         }
@@ -69,48 +25,27 @@
                                 "value": "p0"
                             }
                         }, 
-                        "type": "nat_ext_int_hit"
+                        "type": "nat_ext_int"
                     }, 
-                    "name": "nat_ext_int_hit", 
+                    "name": "nat_ext_int", 
                     "match": {
-                        "state_meta.state": {
-                            "value": "1"
-                        }, 
                         "standard_metadata.ingress_port": {
                             "value": "p4"
                         }
                     }
-                }, 
+                }
+            ]
+        }, 
+        "controller_pkt": {
+            "rules": [
                 {
                     "action": {
-                        "data": {
-                            "port": {
-                                "value": "p4"
-                            }
-                        }, 
-                        "type": "nat_int_ext_miss"
+                        "type": "clear_ports"
                     }, 
-                    "name": "nat_int_ext_miss", 
+                    "name": "controller_pkt", 
                     "match": {
-                        "state_meta.state": {
-                            "value": "0"
-                        }, 
                         "standard_metadata.ingress_port": {
-                            "value": "p0"
-                        }
-                    }
-                }, 
-                {
-                    "action": {
-                        "type": "nat_ext_int_miss"
-                    }, 
-                    "name": "nat_ext_int_miss", 
-                    "match": {
-                        "state_meta.state": {
-                            "value": "0"
-                        }, 
-                        "standard_metadata.ingress_port": {
-                            "value": "p4"
+                            "value": "v0.2"
                         }
                     }
                 }
