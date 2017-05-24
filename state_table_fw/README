@@ -1,7 +1,22 @@
 Testing the P4/C Firewall:
 
-1.  Install the Firewall rpm package for your specific SmartNIC.
+1.  Install the Firewall rpm package for your specific SmartNIC:
       http://iconicsp4.cloudapp.net/repo/p4c-firewall/
+
+      To add repository:
+        Add the following to /etc/yum.conf at the end of the file:
+        [base-p4apps]
+        name=P4 apps
+        failovermethod=priority
+        baseurl=http://iconicsp4.cloudapp.net/repo/
+        enabled=1
+        gpgcheck=0
+
+      All the available packages can be listed with:
+        repoquery -a --repoid=base-p4apps
+      
+      To install:
+        yum install nfp-sdk6-p4-config-<smartnic>-p4c-firewall-2.00-3.noarch
 
 2.  The Firewall controller and test script will be installed to:
       /opt/nfp_pif/etc/smartnic-configs/<smartnic>-p4c-firewall/
