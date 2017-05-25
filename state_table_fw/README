@@ -1,5 +1,8 @@
 Testing the P4/C Firewall:
 
+A guideline for setting up the complete test environment is available at:
+P4WIRE_URL_HERE
+
 1.  Install the Firewall rpm package for your specific SmartNIC:
       http://iconicsp4.cloudapp.net/repo/p4c-firewall/
 
@@ -14,7 +17,7 @@ Testing the P4/C Firewall:
 
       All the available packages can be listed with:
         repoquery -a --repoid=base-p4apps
-      
+
       To install:
         yum install nfp-sdk6-p4-config-<smartnic>-p4c-firewall-2.00-3.noarch
 
@@ -28,6 +31,11 @@ Testing the P4/C Firewall:
 4.  Run the Test Script where you generate your traffic:
       ./p4c-firewall-test.sh <internal port> <external port>
       ./p4c-firewall-test.sh p6p1 p6p2
+
+      Make sure you have downloaded the .pcap files provided in this repo
+      Make sure you have tcpreplay installed on your host:
+        yum install tcpreplay
+      The .pcap files must be in the same directory as the test script.
 
 5.  Setup:
    ______________           ______________
