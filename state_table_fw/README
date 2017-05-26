@@ -39,7 +39,7 @@ P4WIRE_URL_HERE
 
 5.  Setup:
    ______________           ______________
-  |   SmartNIC   |         |   DumbNIC    |
+  |   SmartNIC   |         |TraditionalNIC|
   |            p0|---------|p6p1<Internal>|
   |   Firewall   |         |              |
   |            p4|---------|p6p2<External>|
