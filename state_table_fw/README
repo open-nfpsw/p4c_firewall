@@ -1,28 +1,16 @@
 Testing the P4/C Firewall:
 
-A guideline for setting up the complete test environment is available at:
-P4WIRE_URL_HERE
-
-1.  Install the Firewall rpm package for your specific SmartNIC:
-      http://iconicsp4.cloudapp.net/repo/p4c-firewall/
-
-      To add repository:
-        Add the following to /etc/yum.conf at the end of the file:
-        [base-p4apps]
-        name=P4 apps
-        failovermethod=priority
-        baseurl=http://iconicsp4.cloudapp.net/repo/
-        enabled=1
-        gpgcheck=0
+1.  Follow instructions on http://iconicsp4.cloudapp.net/ to install the NFP SDK RTE, 
+	setup access to the ICONICS repository and identifying your SmartNIC
+	
+	  To install the package:
+        yum install nfp-sdk6-p4-config-<smartnic>-p4c_firewall_state_table-<version>.noarch
 
       All the available packages can be listed with:
-        repoquery -a --repoid=base-p4apps
-
-      To install:
-        yum install nfp-sdk6-p4-config-<smartnic>-p4c-firewall-2.00-3.noarch
+        repoquery -a --repoid=iconics
 
 2.  The Firewall controller and test script will be installed to:
-      /opt/nfp_pif/etc/smartnic-configs/<smartnic>-p4c-firewall/
+      /opt/nfp_pif/etc/smartnic-configs/<smartnic>-p4c_firewall_state_table/
 
 3.    Run the Firewall Controller on the host where the SmartNIC is installed:
       python fw_v2_ctrlr.py -h
